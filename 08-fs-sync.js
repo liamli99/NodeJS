@@ -12,3 +12,6 @@ console.log(second);
 
 // Create a new file if doesn't exist or overwrite the file if exists
 writeFileSync('./content/result-sync.txt', 'This is the sync result');
+
+// Note that readFileSync/writeFileSync reads/writes the file synchronously, this means that these functions block the execution of the program until the file is fully read/written!!!
+console.log('done');
