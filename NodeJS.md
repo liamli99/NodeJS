@@ -35,8 +35,10 @@ For this course, we will use CommonJS modules, but ES modules works exactly the 
 (1) Manual approach: create a 'package.json' file in the root with necessary properties
 (2) General approach: `npm init` (answer a series of questions step by step to set up the project) OR `npm init -y` (answer all the questions with default values), then a 'package.json' file will be generated!
 
-2. Install packages
-**Install packages as dependencies**, dependencies are packages required by the application to run in production!
+Note that 'package.json' file provides information about the project and is used to manage the project! For example, 'main' is a file that is the entry point of the project. 'scripts' is a dictionary that contains script commands that are run at various times in the lifecycle of the project, e.g. `{ "start": "node app.js", "dev": "nodemon app.js" }`, so that we can use `npm start` to run the start script and use `npm run dev` to run the dev script!
+
+1. Install packages
+**Install packages as dependencies**, dependencies are packages required by the project to run in production!
 (1) Install a local package (use it in the current project), recommended!
 `npm install <packagename>`
 (2) Install a global package (use it in any project)
@@ -53,4 +55,10 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
 
 ## Useful packages
 1. nodemon
-`nodemon` can automatically restart the application when the file changes, so that we don't have to manually stop and restart the server every time the file changes! This is similar to live server! We always install it as dev dependency!
+`nodemon` can automatically restart the project when the file changes, so that we don't have to manually stop and restart the project every time the file changes! This is similar to live server!   
+
+We always use `npm install nodemon -D` to install it locally as dev dependency, then we can add `"start": "nodemon app.js"` to scripts of package.json so that we can use `npm start` to run the project using nodemon OR we can add `"dev": "nodemon app.js"` to scripts of package.json so that we can use `npm run dev` to run the project using nodemon! However, if we use `npm install -g nodemon` to install it globally, then we can directly use `nodemon app.js` to run the project using nodemon!
+
+## Event Loop
+The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
+https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick
