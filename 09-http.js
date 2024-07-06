@@ -2,7 +2,7 @@
 
 const http = require('http'); // Object!
 
-// User request and Server response
+// User request and Server response, the callback is executed each time the server receives a request
 const server = http.createServer((req, res) => {
     // localhost:5001
     if (req.url === '/') {
