@@ -62,3 +62,8 @@ We always use `npm install nodemon -D` to install it locally as dev dependency, 
 ## Event Loop
 The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
 https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick
+
+## Stream
+Streams in Node.js are efficient data-handling abstractions that enable reading or writing large data pieces in small, manageable chunks, rather than loading everything into memory at once.
+
+There are 4 types of streams: (1) Readable: streams from which data can be read (2) Writable: streams to which data can be written (3) Duplex: streams that are both Readable and Writable (4) Transform: Dulex streams that can modify or transform the data as it is written and read 

@@ -1,4 +1,4 @@
-https://nodejs.org/api/events.html
+// https://nodejs.org/api/events.html
 
 const EventEmitter = require('events');
 
@@ -17,7 +17,6 @@ customEmitter.on('response', () => {
 customEmitter.on('response', (name, id) => {
     console.log(`data received from ${name} with id: ${id}`);
 });
-
 
 
 // emit: emit an event, it should be after 'on'!!!
