@@ -1,10 +1,12 @@
-// Event Emitter with HTTP module
+// HTTP Server as Event Emitter
 
 const http = require('http'); 
 
-// 'http.createServer()' returns an instance of an HTTP server which is also an EventEmitter!
+// 'http.createServer()' returns an HTTP server which is also an instance of EventEmitter!
+// https://nodejs.org/api/http.html#httpcreateserveroptions-requestlistener
 const server = http.createServer();
 // The 'request' event is emitted each time there is an incoming request 
+// https://nodejs.org/api/http.html#class-httpserver
 server.on('request', (req, res) => {
     res.end('Welcome');
 })
