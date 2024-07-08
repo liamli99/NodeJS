@@ -2,7 +2,8 @@
 
 const http = require('http'); // Object!
 
-// User request and Server response, the callback is executed each time the server receives a request
+// User request and Server response, the callback is executed each time the server receives a request!
+// https://nodejs.org/docs/latest/api/http.html#httpcreateserveroptions-requestlistener
 const server = http.createServer((req, res) => {
     // localhost:5001
     if (req.url === '/') {
@@ -19,5 +20,6 @@ const server = http.createServer((req, res) => {
 
 })
 
-// After running this file, go to localhost:5001
+// After running this file, go to localhost:5001, 5001 is port number!
+// https://nodejs.org/docs/latest/api/http.html#serverlisten
 server.listen(5001);
