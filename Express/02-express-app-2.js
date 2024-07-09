@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 
 // https://expressjs.com/en/starter/static-files.html
+// express.static is a built-in middleware!
 app.use(express.static('./resources/public'));
 
 app.get('/', (req, res) => {

@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
     // res.json([{name: 'Liam'}, {name: 'Amy'}]);
 
     // No need to use readFileSync because we already import the module!
-    // Note that you can only send one response per request, so that it is a good practice to include 'return' before res.send and res.json to prevent further execution. Including 'return' can exit the function immediately after sending the response!
+    // Note that res.send and res.json can end the request-response cycle, so that it is a good practice to include 'return' before res.send and res.json to prevent further execution. Including 'return' can exit the function immediately after sending the response!
     res.json(products);
 });
 

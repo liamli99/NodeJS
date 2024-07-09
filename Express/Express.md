@@ -13,7 +13,6 @@ https://www.course-api.com/images/slides/slide-6.png
 
 ## Express
 https://expressjs.com/
-https://expressjs.com/en/api.html
 
 ## API VS SSR
 ### API (Application Programming Interface)
@@ -25,3 +24,15 @@ The server sends data in JSON, we use `res.json()`
 SSR involves rendering the entire HTML for a webpage on the server side before sending it to the client
 
 The server sends template, we use `res.render()`
+
+## Middleware
+https://expressjs.com/en/guide/writing-middleware.html
+https://expressjs.com/en/guide/using-middleware.html
+
+Middleware functions are functions that have access to the request object (req), the response object (res), and the next function in the application’s request-response cycle. The next function is a function in the Express router which, when invoked, executes the next middleware function.
+
+Middleware functions can perform the following tasks: (1) Execute any code. (2) Make changes to the request and the response objects. (3) End the request-response cycle. (4) Call the next middleware in the stack.
+
+If the current middleware function does not end the request-response cycle, it MUST call next() to pass control to the next middleware function. Otherwise, the request will be left hanging!
+
+There are different kinds of middleware: (1) Our own middleware (2) Built-in middleware (3) Third-party middleware
