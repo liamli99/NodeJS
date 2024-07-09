@@ -5,6 +5,7 @@ const app = express();
 
 app.get('/', (req, res) => {
     // If the data is a string, then the default 'Content-Type' is 'text/html'!
+    // Note that different from res.write which can be called multiple times, res.send can only be executed once per request!
     res.status(200).send('<h1>Home Page</h1>');
 });
 
