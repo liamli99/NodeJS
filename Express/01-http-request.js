@@ -26,6 +26,8 @@ const server = http.createServer((req, res) => {
 
 // localhost:5001
 // https://nodejs.org/docs/latest/api/net.html#serverlisten
-server.listen(5001);
+server.listen(5001, () => {
+    console.log('Server is listening on port 5001');
+});
 
 
