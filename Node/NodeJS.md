@@ -42,7 +42,7 @@ Note that 'package.json' file provides information about the project and is used
 (1) Install a local package (use it in the current project), recommended!
 `npm install <packagename>`
 (2) Install a global package (use it in any project)
-`npm install -g <packagename>`
+`sudo npm install -g <packagename>`
 
 **Install packages as dev dependencies**, dev dependencies are packages that are only needed for local development and testing!
 `npm install <packagename> --save-dev` OR `npm install <packagename> -D`

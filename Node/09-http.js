@@ -21,5 +21,8 @@ const server = http.createServer((req, res) => {
 })
 
 // After running this file, go to localhost:5001, 5001 is port number!
+// The callback is executed once the server starts listening
 // https://nodejs.org/docs/latest/api/http.html#serverlisten
-server.listen(5001);
+server.listen(5001, () => {
+    console.log('Server listening on port : 5001....');
+});
