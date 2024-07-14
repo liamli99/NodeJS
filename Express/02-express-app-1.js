@@ -28,9 +28,12 @@ app.get('/logo.svg', (req, res) => {
     res.status(200).type('image/svg+xml').send(homeImage);
 });
 
-app.all('*', (req, res) => {
-    res.status(404).send('<h1>Page Not Found</h1>');
-});
+app.use((req, res) => res.status(404).send('<h1>Page Not Found</h1>'));
+
+// Alternative solution
+// app.all('*', (req, res) => {
+//     res.status(404).send('<h1>Page Not Found</h1>');
+// });
 
 app.listen(5001, () => {
     console.log('Server is listening on port 5001');

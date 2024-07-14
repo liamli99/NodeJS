@@ -1,2 +1,2 @@
-// Execute the function in 05-functions.js
+// Execute 05-functions.js
 require('./05-functions');

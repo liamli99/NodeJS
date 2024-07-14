@@ -1,3 +1,5 @@
+// MVC pattern
+
 const { people } = require('./resources/data');
 
 const getPeople = (req, res) => {

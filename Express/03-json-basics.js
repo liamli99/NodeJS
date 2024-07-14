@@ -4,7 +4,7 @@ const app = express();
 const { products } = require('./resources/data');
 
 app.get('/', (req, res) => {
-    // Send a JSON response, the Content-Type is 'application/json'
+    // Send a JSON response, the Content-Type is 'application/json'. Note that it accepts most of the data types and converts them to JSON!
     // https://expressjs.com/en/api.html#res.json
     // res.json([{name: 'Liam'}, {name: 'Amy'}]);
 
