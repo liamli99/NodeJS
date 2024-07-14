@@ -62,9 +62,14 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
 We always use `npm install nodemon -D` to install it locally as dev dependency, then we can add `"start": "nodemon app.js"` to scripts of package.json so that we can use `npm start` to run the project using nodemon OR we can add `"dev": "nodemon app.js"` to scripts of package.json so that we can use `npm run dev` to run the project using nodemon! However, if we use `npm install -g nodemon` to install it globally, then we can directly use `nodemon app.js` to run the project using nodemon!
 
 2. dotenv
-`dotenv` can help manage environment variables in the project!
+`dotenv` can help manage environment variables in the project!   
 
 We use `npm install dotenv` to install this package, then we create a '.env' file to contain the environment variables in the format `KEY=Value`!!! Then in the entry file (app.js), we can use `require('dotenv').config();` to load environment variables and use `process.env.KEY` to accesss environment variables!
+
+3. express-async-errors
+`express-async-errors` can simplify error handling in async functions by automatically catching errors and passing them to the next middleware, so that we don't have to write try-catch blocks in each async route handler!   
+
+We use `npm install express-async-errors` to install this package! Then, (1) We need to load `require('express-async-errors')` in the entry file (app.js), (2) Remove all try catch blocks in async functions and only keep the code in try! Note that error in catch can be automatically passed to the next middleware!
 
 ## Event Loop
 The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
