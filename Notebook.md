@@ -156,9 +156,11 @@ Login: https://account.mongodb.com/account/login
 (3) Manage database users: SECURITY - Database Access
 (4) Manage the IP access list: SECURITY - Network Access
 (5) Connect to the cluster: Data Services - Connect - Drivers - Connection string
-(6) Create database inside the cluster: Data Services - Add data - Create Database on Atlas, Note that we don't have to create the database in advance, we can include the database name in the connection string and after running the app, the database will be created!
+(6) Create database inside the cluster: Data Services - Add data - Create Database on Atlas. Note that we don't have to create the database and collection in advance for all the projects, because the database name can be included in the connection string and the collection name can be determined by the model name, after running the app, they will be created!
 
-Structure: Organization (Liam) -> Project (Node and Express Course Project) -> Cluster (NodeExpressProject) -> Database -> Collection -> Document 
+Structure: Organization (Liam) -> Project (Node and Express Course Project) -> Cluster (NodeExpressProject) -> Database -> Collection -> Document   
+
+Collection is similar to table and Document is similar to record! Each document is composed of field-value pairs, similar to key-value pairs in JSON!  
 
 ## Mongoose
 General Tutorial: https://mongoosejs.com/
@@ -176,19 +178,28 @@ https://mongoosejs.com/docs/schematypes.html
 Model: 
 https://mongoosejs.com/docs/models.html
 
-Create:
+CRUD:
+(1) Create:
 https://mongoosejs.com/docs/models.html#constructing-documents
 https://mongoosejs.com/docs/api/model.html#Model.create()
 
-Read:
+(2) Read:
 https://mongoosejs.com/docs/queries.html
 https://mongoosejs.com/docs/api/model.html#Model.find()
 https://mongoosejs.com/docs/api/model.html#Model.findOne()
 
-Update:
+https://www.mongodb.com/docs/manual/reference/operator/query/
+
+Sort:
+https://mongoosejs.com/docs/api/query.html#Query.prototype.sort()
+
+**Order: find -> sort -> select -> limit!!!!!!!!**
+
+(3) Update:
 https://mongoosejs.com/docs/queries.html
 https://mongoosejs.com/docs/api/model.html#Model.findOneAndUpdate()
 
-Delete:
+(4) Delete:
 https://mongoosejs.com/docs/queries.html
 https://mongoosejs.com/docs/api/model.html#Model.findOneAndDelete()
+https://mongoosejs.com/docs/api/model.html#Model.deleteMany()

@@ -20,7 +20,7 @@ const createTask = async (req, res, next) => {
 const getAllTasks = async (req, res, next) => {
     try {
         // https://mongoosejs.com/docs/api/model.html#Model.find()
-        // The return value of model.find() is Query! Note that Queries are not Promises, but we can use them as Promises! The resolved value is all documents!
+        // The return value of model.find() is Query! Note that Queries are not Promises, but we can use them as Promises! The resolved value is an array of all documents!
         const tasks = await Task.find({});
         res.status(200).json({ tasks });
     } catch (error) {

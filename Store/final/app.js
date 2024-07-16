@@ -6,13 +6,13 @@ const app = express();
 
 const productRouter = require('./routes/products');
 
-const notFound = require('./middleware/not-found');
 const errorHandler = require('./middleware/error-handler');
+const notFound = require('./middleware/not-found');
 
 const connectDB = require('./db/connect');
 
 
-
+// Built-in Middleware
 app.use(express.json()); // This is actually not used in this project, just include it for practice!
 
 // Routes
@@ -21,10 +21,11 @@ app.get('/', (req, res) => {
 });
 app.use('/api/v1/products', productRouter);
 
-// Middleware
+// Custom Middleware
 app.use(errorHandler);
 app.use(notFound);
 
+// Connect to database and listen on the port
 port = process.env.PORT || 5000;
 const start = async () => {
     try {

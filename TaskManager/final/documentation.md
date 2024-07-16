@@ -13,9 +13,11 @@
 1. /api/v1/tasks/:id: Delete the task
 
 
-
 # Packages
 `npm install dotenv`
 `npm install express`
 `npm install mongoose`
 `npm install nodemon -D`
+
+# .env
+MONGO_URI is the connection string, remember to include the user, password, and database name in the right place!
