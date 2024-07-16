@@ -5,12 +5,10 @@ const app = express();
 
 const taskRouter = require('./routes/taskRouter');
 
-const errorHandler = require('./middleware/error-handler');
 const notFound = require('./middleware/not-found');
+const errorHandler = require('./middleware/error-handler');
 
 const connectDB = require('./db/connect');
-
-
 
 
 // Built-in Middleware
@@ -21,11 +19,11 @@ app.use(express.json());
 app.use('/api/v1/tasks', taskRouter);
 
 // Custom Middleware
-app.use(errorHandler); // Handle errors that are passed to this middleware in taskController.js
 app.use(notFound); // Handle all undefined routes
+app.use(errorHandler); // Handle errors! Note that error-handling middleware is defined last, after other app.use() and routes call!!!
 
 // We should first connect to the database!!!
-port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_URI);

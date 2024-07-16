@@ -4,26 +4,23 @@ require('express-async-errors');
 const express = require('express');
 const app = express();
 
-const notFoundMiddleware = require('./middleware/not-found');
-const errorHandlerMiddleware = require('./middleware/error-handler');
+const mainRouter = require('./routes/main');
 
-// middleware
+const notFound = require('./middleware/not-found');
+const errorHandler = require('./middleware/error-handler');
+
+
+
 app.use(express.static('./public'));
 app.use(express.json());
 
-app.use(notFoundMiddleware);
-app.use(errorHandlerMiddleware);
+app.use('/api/v1', mainRouter);
 
-const port = process.env.PORT || 3000;
+app.use(notFound);
+app.use(errorHandler);
 
-const start = async () => {
-  try {
-    app.listen(port, () =>
-      console.log(`Server is listening on port ${port}...`)
-    );
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-start();
+// Note that this project doesn't need database!
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});

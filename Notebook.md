@@ -49,10 +49,11 @@ Note that 'package.json' file provides information about the project and is used
 **Install packages as dev dependencies**, dev dependencies are packages that are only needed for local development and testing!
 `npm install <packagename> --save-dev` OR `npm install <packagename> -D`
 
-Note that all the local packages we install are stored in node_modules folder and are included in dependencies/devDependencies of package.json!     
-Normally we won't push node_modules folder to github, so that if we clone a Node.js project from github, we can run `npm install` to install all the packages in dependencies/devDependencies of package.json!
+Note that all the local packages we install are stored in node_modules folder and are included in dependencies/devDependencies of package.json! After we install a local package, a 'package-lock.json' file will be generated!!   
 
-3. Use packages
+Normally we won't push node_modules folder to github, so that if we clone a Node.js project from github, we can run `npm install` to install all the packages in dependencies/devDependencies of package.json! However, if we want to manually install all the packages with certain versions, we can delete dependencies/devDependencies of package.json and delete package-lock.json file, then use `npm install <packagename>` to manually download the packages!!!  
+
+1. Use packages
 Similar to modules, we can use require (CommonJS Modules) or import (ES Modules) to include the package! For more details, see https://www.npmjs.com/
 
 ## Useful packages
@@ -69,7 +70,7 @@ We use `npm install dotenv` to install this package, then we create a '.env' fil
 3. express-async-errors
 `express-async-errors` can simplify error handling in async functions by automatically catching errors and passing them to the next middleware, so that we don't have to write try-catch blocks in each async route handler!   
 
-We use `npm install express-async-errors` to install this package! Then, (1) We need to load `require('express-async-errors')` in the entry file (app.js), (2) Remove all try catch blocks in async functions and only keep the code in try! Note that error in catch can be automatically passed to the next middleware!
+We use `npm install express-async-errors` to install this package! Then, (1) Load `require('express-async-errors')` in the entry file (app.js), (2) Remove all try catch blocks in async functions and only keep the code in try! This is becasue error in catch can be automatically passed to the next middleware!
 
 ## Event Loop
 The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
@@ -138,6 +139,8 @@ There are different kinds of middleware: (1) Our own middleware (2) Built-in mid
 
 ## Postman
 Postman is an API platform for developers to design, build, test, and collaborate on APIs.
+req.query: Params
+req.body: Body - raw - JSON
 
 ## Express Router
 https://expressjs.com/en/guide/routing.html
