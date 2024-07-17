@@ -72,6 +72,10 @@ We use `npm install dotenv` to install this package, then we create a '.env' fil
 
 We use `npm install express-async-errors` to install this package! Then, (1) Load `require('express-async-errors')` in the entry file (app.js), (2) Remove all try catch blocks in async functions and only keep the code in try! This is becasue error in catch can be automatically passed to the next error-handling middleware!
 
+4. jsonwebtoken
+`jsonwebtoken` is used for creating and verifying JSON Web Tokens, and decoding their payloads!
+
+
 ## Event Loop
 The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
 https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick
@@ -146,6 +150,18 @@ req.body: Body - raw - JSON
 https://expressjs.com/en/guide/routing.html
 Express Router is a mini Express application that groups related routes together! Since router can be created as a module, we can first import it in the main file. Since router is a middleware, we can then mount the router module on a specific path in the main file!!! 
 
+## Error Handling
+1. Errors that occur in synchronous function: `throw new Error(...)`
+2. Errors that occur in asynchronous function: `next(error)`
+
+Note: 
+(1) For errors that occur in sync function, we can use `throw` or `next` to pass the error to error-handling middleware
+
+(2) For errors that occur in async function, we must use `next` to pass the error to error-handling middleware! If there exists a try catch block, 'catch' can handle the rejected value of the promise or the thrown error! We must use `next` in 'catch' to pass the error to error-handling middleware! But 'try' can use `throw` to propagate error to 'catch' or use `next` to pass error to error-handling middleware! 
+
+However, if we load 'express-async-errors' which can autamatically catch errors (rejected or thrown) in async function and pass them to the next error-handling middleware, then we only need to keep the code in 'try'!!!
+
+(3) For all errors that occur in sync/async function, we can use `next` to directly pass the error to error-handling middleware! Pay attention that since the error-handling middleware includes res.send/res.json, if there is further execution after next that also includes res.send/res.json, we must write `return next` to exit the function! Different from `next`, `throw` can exit the function immediately!
 
 
 # MongoDB
@@ -209,4 +225,6 @@ https://mongoosejs.com/docs/api/model.html#Model.deleteMany()
 
 
 ## JWT
-https://jwt.io/
+https://jwt.io/introduction
+https://jwt.io/#debugger-io
+https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html

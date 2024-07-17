@@ -10,12 +10,12 @@ const createTask = async (req, res, next) => {
         const task = await Task.create(req.body);
         // Shorthand Property
         res.status(201).json({ task });
-    // The rejected value of the Promise, it also includes violations against schema validation rules in taskModel.js! So that POST request's body shoud follow those rules!
+    // 'error' is the rejected value of the Promise, it also includes violations against schema validation rules in taskModel.js! So that POST request's body shoud follow those rules!
     } catch (error) {
         // Original code
         // res.status(500).json({ msg: error });
         
-        // New code: Pass the error to the next custom error handling middleware 'middleware/error-handler.js'. This allows us to centralize error handling logic and handle different types of errors consistently!
+        // New code: Pass the error to the next error handling middleware 'middleware/error-handler.js'. This allows us to centralize error handling logic and handle different types of errors consistently!
         next(error); 
     } 
 }
@@ -31,7 +31,7 @@ const getAllTasks = async (req, res, next) => {
         // Original code
         // res.status(500).json({ msg: error });
 
-        // New code: Pass the error to the next custom error handling middleware 'middleware/error-handler.js'
+        // New code: Pass the error to the next error handling middleware 'middleware/error-handler.js'
         next(error);
     }
 }
@@ -52,18 +52,19 @@ const getTask = async (req, res, next) => {
             // Original code
             // res.status(404).json({ msg: 'Task Not Found' });
 
-            // New code: Pass the custom error to the next custom error handling middleware 'middleware/error-handler.js'
+            // New code: Pass the custom error to the next error handling middleware 'middleware/error-handler.js'
             next(new CustomError(404, 'Task Not Found'));
 
-            // Alternative solution: throw new CustomError(404, 'Task Not Found');
-            // Note that 'catch' must use 'next(error)', we always use 'throw new Error' in 'try'!
-            // next() cannot exit the current function, but 'throw' can exit the current function immediately!
+            // Alternative solution: Propagate the custom error to 'catch'
+            // throw new CustomError(404, 'Task Not Found');
+           
         } 
+    // Rejected value or thrown error
     } catch (error) {
         // Original code
         // res.status(500).json({ msg: error });
 
-        // New code: Pass the error to the next custom error handling middleware 'middleware/error-handler.js'
+        // New code: Pass the error to the next error handling middleware 'middleware/error-handler.js'
         next(error);
     }
 }
@@ -84,14 +85,18 @@ const deleteTask = async (req, res, next) => {
             // Original code
             // res.status(404).json({ msg: 'Task Not Found' });
 
-            // New code: Pass the custom error to the next custom error handling middleware 'middleware/error-handler.js'
+            // New code: Pass the custom error to the next error handling middleware 'middleware/error-handler.js'
             next(new CustomError(404, 'Task Not Found'));
+
+            // Alternative solution: Propagate the custom error to 'catch'
+            // throw new CustomError(404, 'Task Not Found');
         } 
+    // Rejected value or thrown error
     } catch (error) {
         // Original code
         // res.status(500).json({ msg: error });
 
-        // New code: Pass the error to the next custom error handling middleware 'middleware/error-handler.js'
+        // New code: Pass the error to the next error handling middleware 'middleware/error-handler.js'
         next(error);
     }
 }
@@ -119,14 +124,18 @@ const updateTask = async (req, res, next) => {
             // Original code
             // res.status(404).json({ msg: 'Task Not Found' });
 
-            // New code: Pass the custom error to the next custom error handling middleware 'middleware/error-handler.js'
+            // New code: Pass the custom error to the next error handling middleware 'middleware/error-handler.js'
             next(new CustomError(404, 'Task Not Found'));
+
+            // Alternative solution: Propagate the custom error to 'catch'
+            // throw new CustomError(404, 'Task Not Found');
         } 
+    // Rejected value or thrown error
     } catch (error) {
         // Original code
         // res.status(500).json({ msg: error });
 
-        // New code: Pass the error to the next custom error handling middleware 'middleware/error-handler.js'
+        // New code: Pass the error to the next error handling middleware 'middleware/error-handler.js'
         next(error);
     }
 }
