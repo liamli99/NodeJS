@@ -1,6 +1,6 @@
 // https://expressjs.com/en/guide/error-handling.html
 
-const { CustomError } = require('../errors/custom-error');
+const CustomError = require('../errors/custom-error');
 
 // Handle errors that are passed to this middleware function in taskController.js
 // Different from other middleware functions, error-handling middleware takes 4 arguments!!!

@@ -1,5 +1,5 @@
 const Task = require('../models/taskModel');
-const { createCustomError } = require('../errors/custom-error');
+const CustomError = require('../errors/custom-error');
 
 // POST /api/v1/tasks
 const createTask = async (req, res, next) => {
@@ -53,7 +53,7 @@ const getTask = async (req, res, next) => {
             // res.status(404).json({ msg: 'Task Not Found' });
 
             // New code: Pass the custom error to the next custom error handling middleware 'middleware/error-handler.js'
-            next(createCustomError(404, 'Task Not Found'));
+            next(new CustomError(404, 'Task Not Found'));
         } 
     } catch (error) {
         // Original code
@@ -81,7 +81,7 @@ const deleteTask = async (req, res, next) => {
             // res.status(404).json({ msg: 'Task Not Found' });
 
             // New code: Pass the custom error to the next custom error handling middleware 'middleware/error-handler.js'
-            next(createCustomError(404, 'Task Not Found'));
+            next(new CustomError(404, 'Task Not Found'));
         } 
     } catch (error) {
         // Original code
@@ -116,7 +116,7 @@ const updateTask = async (req, res, next) => {
             // res.status(404).json({ msg: 'Task Not Found' });
 
             // New code: Pass the custom error to the next custom error handling middleware 'middleware/error-handler.js'
-            next(createCustomError(404, 'Task Not Found'));
+            next(new CustomError(404, 'Task Not Found'));
         } 
     } catch (error) {
         // Original code
