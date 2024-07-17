@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 
-// Note that there is no need to include try catch block in the async function because we load 'express-async-errors' in app.js which can automatically catch errors and passing them to the next middleware!!!
+// Note that there is no need to include try catch block in the async function because we load 'express-async-errors' in app.js which can automatically catch errors and passing them to the next error-handling middleware!!! So that we only need to keep the code in 'try'!
 
 // GET /api/v1/products/test
 // This is only used for testing!

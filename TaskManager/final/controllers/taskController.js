@@ -54,6 +54,10 @@ const getTask = async (req, res, next) => {
 
             // New code: Pass the custom error to the next custom error handling middleware 'middleware/error-handler.js'
             next(new CustomError(404, 'Task Not Found'));
+
+            // Alternative solution: throw new CustomError(404, 'Task Not Found');
+            // Note that 'catch' must use 'next(error)', we always use 'throw new Error' in 'try'!
+            // next() cannot exit the current function, but 'throw' can exit the current function immediately!
         } 
     } catch (error) {
         // Original code
