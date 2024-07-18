@@ -161,7 +161,7 @@ Note:
 
 However, if we load 'express-async-errors' which can autamatically catch errors (rejected or thrown) in async function and pass them to the next error-handling middleware, then we only need to keep the code in 'try'!!!
 
-(3) For all errors that occur in sync/async function, we can use `next` to directly pass the error to error-handling middleware! Pay attention that since the error-handling middleware includes res.send/res.json, if there is further execution after next that also includes res.send/res.json, we must write `return next` to exit the function! Different from `next`, `throw` can exit the function immediately!
+(3) For all errors that occur in sync/async function, we can use `next` to directly pass the error to error-handling middleware! Pay attention that if there is further execution after next, we must write `return next` to exit the function to prevent further execution! This is similar to res.send/json! Different from `next`, `throw` can exit the function immediately!
 
 
 # MongoDB
