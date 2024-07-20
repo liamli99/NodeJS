@@ -10,11 +10,14 @@
 `npm install express-rate-limit`
 `npm install helmet`
 `npm install swagger-ui-express`
-`npm install xss-clean` // Warn! Not supported!
 `npm install yamljs` // warn
+`npm install xss-clean` // Warn! Not supported!
 `npm install nodemon -D`
 
-
+## .env
+MONGO_URI
+JWT_SECRET
+JWT_LIFETIME
 
 #### User Model
 
@@ -52,7 +55,7 @@ Email Validation Regex
 
 - helmet
 - cors
-- xss-clean
+- xss-clean, NOT Supported!
 - express-rate-limit
 
 Swagger UI
