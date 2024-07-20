@@ -58,22 +58,46 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
 
 ## Useful packages
 1. nodemon
-`nodemon` can automatically restart the project when the file changes, so that we don't have to manually stop and restart the project every time the file changes! This is similar to live server!   
+It can automatically restart the project when the file changes, so that we don't have to manually stop and restart the project every time the file changes! This is similar to live server!   
 
 We always use `npm install nodemon -D` to install it locally as dev dependency, then we can add `"start": "nodemon app.js"` to scripts of package.json so that we can use `npm start` to run the project using nodemon OR we can add `"dev": "nodemon app.js"` to scripts of package.json so that we can use `npm run dev` to run the project using nodemon! However, if we use `npm install -g nodemon` to install it globally, then we can directly use `nodemon app.js` to run the project using nodemon!
 
 2. dotenv
-`dotenv` can help manage environment variables in the project!   
+It can help manage environment variables in the project!   
 
 We use `npm install dotenv` to install this package, then we create a '.env' file to contain the environment variables in the format `KEY=Value`!!! Then in the entry file (app.js), we can use `require('dotenv').config();` to load environment variables and use `process.env.KEY` to accesss environment variables!
 
 3. express-async-errors
-`express-async-errors` can simplify error handling in async functions by automatically catching errors and passing them to the next error-handling middleware, so that we don't have to write try-catch blocks in each async route handler!   
+It can simplify error handling in async functions by automatically catching errors and passing them to the next error-handling middleware, so that we don't have to write try-catch blocks in each async route handler!   
 
 We use `npm install express-async-errors` to install this package! Then, (1) Load `require('express-async-errors')` in the entry file (app.js), (2) Remove all try catch blocks in async functions and only keep the code in try! This is becasue error in catch can be automatically passed to the next error-handling middleware!
 
 4. jsonwebtoken
-`jsonwebtoken` is used for creating and verifying JSON Web Tokens, and decoding their payloads!
+It is used for creating and verifying JSON Web Tokens, and decoding their payloads!
+https://www.npmjs.com/package/jsonwebtoken
+
+5. http-status-codes
+https://www.npmjs.com/package/http-status-codes
+
+6. bcryptjs
+It can help hash the password!
+
+7. helmet
+It helps secure the app by setting HTTP response headers
+
+8. cors
+CORS (Cross-origin resource sharing) is a mechanism that allows a web page to access restricted resources from a server on a domain different than the domain that served the web page! This package can be used to enable CORS with various options.
+
+9. xss-clean 
+NOT SUPPORTED!!!
+
+10. express-rate-limit
+It is used to limit reperated requests!
+https://www.npmjs.com/package/express-rate-limit
+
+1.  
+
+
 
 
 ## Event Loop
@@ -222,6 +246,10 @@ https://mongoosejs.com/docs/api/model.html#Model.findOneAndUpdate()
 https://mongoosejs.com/docs/queries.html
 https://mongoosejs.com/docs/api/model.html#Model.findOneAndDelete()
 https://mongoosejs.com/docs/api/model.html#Model.deleteMany()
+
+Middleware: https://mongoosejs.com/docs/middleware.html
+
+Instance methods: https://mongoosejs.com/docs/guide.html#methods
 
 
 ## JWT

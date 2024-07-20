@@ -10,7 +10,7 @@ const createTask = async (req, res, next) => {
         const task = await Task.create(req.body);
         // Shorthand Property
         res.status(201).json({ task });
-    // 'error' is the rejected value of the Promise, it also includes violations against schema validation rules in taskModel.js! So that POST request's body shoud follow those rules!
+    // 'error' is the rejected value of the Promise, it also includes violations against schema validation rules in taskModel.js! So that POST request's body shoud follow all those rules!
     } catch (error) {
         // Original code
         // res.status(500).json({ msg: error });
@@ -104,7 +104,7 @@ const deleteTask = async (req, res, next) => {
 // PATCH /api/v1/tasks/:id
 // Note that PUT is used to replace the entire resource, while PATCH is used to update part of the resource!!!
 // If we want to switch from PATCH to PUT, we only need to replace 'findOneAndUpdate' with 'findOneAndReplace'!!!
-// findOneAndUpdate: The document is updated based on req.body (the properties of the document that are not in req.body will remain unchanged!)
+// findOneAndUpdate: The document is updated based on req.body (the fields of the document that are not in req.body will remain unchanged!)
 // findOneAndReplace: The document is replaced with req.body (the properties of the document that are not in req.body will be removed or set to default values in the schema!)
 const updateTask = async (req, res, next) => {
     try {
@@ -113,7 +113,7 @@ const updateTask = async (req, res, next) => {
         // The return value of model.findOneAndUpdate() is Query! The resolved value is the original document which matches the condition by default!
         const task = await Task.findOneAndUpdate({ _id: id }, req.body, {
             new: true, // The resolved value is the updated document!
-            runValidators: true // Same as Task.create(), now the rejected value also includes violations against schema validation rules in taskModel.js! So that PATCH request's body shoud also follow thoese rules!
+            runValidators: true // Same as Task.create(), now the rejected value also includes violations against schema validation rules in taskModel.js! However, PATCH request's body should only follow corresponding rules! For example, if req.body only has 'completed', this is not accepted in POST request body because 'create' checks all the fields and 'completed' field is required! However, this is accepted in PATCH request body because 'findOneAndUpdate' only checks the existing field!!!
         });
 
         if (task) {

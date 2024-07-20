@@ -1,20 +1,20 @@
-#### Setup
+## Packages
+`npm install mongoose`
+`npm install express`
+`npm install express-async-errors`
+`npm install dotenv`
+`npm install jsonwebtoken`
+`npm install http-status-codes`
+`npm install bcryptjs`
+`npm install cors`
+`npm install express-rate-limit`
+`npm install helmet`
+`npm install swagger-ui-express`
+`npm install xss-clean` // Warn! Not supported!
+`npm install yamljs` // warn
+`npm install nodemon -D`
 
-```bash
-npm install && npm start
-```
 
-#### Database Connection
-
-1. Import connect.js
-2. Invoke in start()
-3. Setup .env in the root
-4. Add MONGO_URI with correct value
-
-#### Routers
-
-- auth.js
-- jobs.js
 
 #### User Model
 

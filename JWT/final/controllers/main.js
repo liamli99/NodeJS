@@ -21,7 +21,7 @@ const login = async (req, res, next) => {
     const payload = {
         id: new Date().getDate(),
         username
-    }
+    };
     // In production, use long, complex, and unguessable string value as secret!
     const secret = process.env.JWT_SECRET;
     
