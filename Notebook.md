@@ -117,6 +117,10 @@ https://ethereal.email/
 15.  SendGrid
 A cloud-based SMTP service that is used in production!
 
+16. Stripe
+Tutorial: https://docs.stripe.com/payments/quickstart
+API Keys: https://dashboard.stripe.com/test/apikeys
+Payments: https://dashboard.stripe.com/test/payments
 
 ## Event Loop
 The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.

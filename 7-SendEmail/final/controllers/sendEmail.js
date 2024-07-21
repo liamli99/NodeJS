@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 // GET /api/v1/send
 // Only for testing!
-const sendEmail = async (req, res) => {
+const sendEmailEthereal = async (req, res) => {
     // This is provided by Ethereal: https://ethereal.email/create
     const transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
@@ -25,5 +25,8 @@ const sendEmail = async (req, res) => {
 }
 
 // Used in production! SendGrid
+const sendEmailSendGrid = async (req, res) => {
+    res.send('SendGrid');
+}
 
-module.exports = sendEmail;
+module.exports = { sendEmailEthereal, sendEmailSendGrid };

@@ -1,7 +1,7 @@
 require('dotenv').config();
 require('express-async-errors');
 
-const { sendEmailEthereal } = require('./controllers/sendEmail');
+const stripeController = require('./controllers/stripeController');
 
 const notFound = require('./middleware/not-found');
 const errorHandler = require('./middleware/error-handler');
@@ -9,11 +9,10 @@ const errorHandler = require('./middleware/error-handler');
 const express = require('express');
 const app = express();
 
+app.use(express.static('public'));
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('<a href="/api/v1/send">Send Email</a>');
-});
-app.get('/api/v1/send', sendEmailEthereal);
+app.post('/api/v1/stripe', stripeController);
 
 app.use(notFound);
 app.use(errorHandler);
