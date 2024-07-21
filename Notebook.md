@@ -109,6 +109,13 @@ Stored files (images, videos, etc): Assets -> Media Library -> Folders
 https://console.cloudinary.com/console/c-a9b9a36336c6867b314571bb11651f/media_library/folders/home?view_mode=list
 
 
+13. Nodemailer
+Send emails: https://nodemailer.com/
+14. Ethereal
+A fake SMTP service that is used only for testing! It allows you to send emails without actually delivering them!
+https://ethereal.email/
+15.  SendGrid
+A cloud-based SMTP service that is used in production!
 
 
 ## Event Loop
