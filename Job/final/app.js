@@ -42,7 +42,7 @@ app.use('/api/v1/jobs', authentication, jobsRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-// Note that we normally don't store 'PORT' in .env, because when we deploy this backend application, the cloud service provider always provides this environment variable!!!
+// Note that we normally don't store 'PORT' in .env, because when we deploy the backend application, the cloud service provider always provides this environment variable!!!
 const port = process.env.PORT || 3000;
 const start = async () => {
   try {

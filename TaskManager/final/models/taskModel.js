@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Schema: https://mongoosejs.com/docs/guide.html
 const TaskSchema = new mongoose.Schema({
     // SchemaType: https://mongoosejs.com/docs/schematypes.html
-    // All SchemaTypes have built-in validators!
+    // All SchemaTypes have built-in validators: https://mongoosejs.com/docs/validation.html#built-in-validators!
     name: {
         type: String, 
         required: [true, 'Name is required'], // The value of name must be provided, if not, then the error message will come up!

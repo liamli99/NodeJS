@@ -70,7 +70,7 @@
         const nameValue = input.value
 
         try {
-          // Request: Send the data { name: nameValue } (converted to JSON) to '/api/people' endpoint
+          // Request: Send the data { name: nameValue } (automatically converted to JSON!!!) to '/api/people' endpoint
           // Response: Get an Axios response whose data property is the actual response provided by app.post('/api/people', ...), which is { success: true, person: name } OR { success: false, msg: 'Please provide your name' }
           const { data } = await axios.post('/api/people', { name: nameValue })
           

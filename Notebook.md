@@ -95,7 +95,18 @@ NOT SUPPORTED!!!
 It is used to limit reperated requests!
 https://www.npmjs.com/package/express-rate-limit
 
-1.  
+
+11. express-fileupload
+https://www.npmjs.com/package/express-fileupload
+
+12. cloudinary
+Tutorial: https://console.cloudinary.com/pm/c-a9b9a36336c6867b314571bb11651f/getting-started
+
+Configuration information (Cloud name, API Key, and API Secret): Programmable Media -> Dashboard -> Product Environment -> Go to API Keys
+https://console.cloudinary.com/settings/c-a9b9a36336c6867b314571bb11651f/api-keys
+
+Stored files (images, videos, etc): Assets -> Media Library -> Folders
+https://console.cloudinary.com/console/c-a9b9a36336c6867b314571bb11651f/media_library/folders/home?view_mode=list
 
 
 
@@ -129,10 +140,10 @@ https://www.course-api.com/images/slides/slide-6.png
 Client: send a GET request to the endpoint with or without route parameters (req.params)
 Server: get the data (based on req.params), send a response
 ### POST
-Client: send a POST request with data (req.body) to the endpoint
+Client: send a POST request with data (app.use(express.json()), req.body) to the endpoint
 Server: create the new data based on req.body, send a response
 ### PUT/PATCH
-Client: send a PUT/PATCH request with data (req.body) to the endpoint with route parameters (req.params)
+Client: send a PUT/PATCH request with data (app.use(express.json()), req.body) to the endpoint with route parameters (req.params)
 Server: find the data based on req.params and update that data based on req.body, send a response
 Note that PUT is used to replace the entire resource, while PATCH is used to update part of the resource!!!
 ### DELETE
@@ -165,10 +176,21 @@ If the current middleware function does not end the request-response cycle, it M
 
 There are different kinds of middleware: (1) Our own middleware (2) Built-in middleware (3) Third-party middleware
 
+Built-in Middleware: 07-http-methods
+
 ## Postman
 Postman is an API platform for developers to design, build, test, and collaborate on APIs.
 req.query: Params
-req.body: Body - raw - JSON
+req.body: 
+Body -> raw -> JSON
+
+req.files (using 'express-fileupload')
+Upload images: Body -> form-data -> Key (choose 'File'), Value (Select file from local machine)
+
+Headers
+Authorization
+Scripts
+
 
 ## Express Router
 https://expressjs.com/en/guide/routing.html

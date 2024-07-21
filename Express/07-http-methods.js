@@ -9,10 +9,12 @@ const { people } = require('./resources/data');
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static('./resources/methods-public'));
 
+// This is only used in POST and PUT requests! So that we can use 'req.body' to access the data in the body of POST and PUT requests!
 // It parses incoming requests with url-encoded data (request body), so that 'req.body' contains the parsed data!!! This is used for POST form example!
 // https://expressjs.com/en/4x/api.html#express.urlencoded
 app.use(express.urlencoded({ extended: false }));
 
+// This is only used in POST and PUT requests! So that we can use 'req.body' to access the data in the body of POST and PUT requests!
 // It parses incoming requests with JSON data (request body), so that 'req.body' contains the parsed data!!! This is used for POST javascript example and PUT example!
 // https://expressjs.com/en/4x/api.html#express.json
 app.use(express.json());

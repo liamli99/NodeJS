@@ -11,6 +11,8 @@ const errorHandler = require('./middleware/error-handler');
 
 const connectDB = require('./db/connect');
 
+// Note that this project doesn't need this middleware because this is used only for POST and PUT requests!!! This middleware can recognize the incoming request object as a JSON Object so that we can use 'req.body' to access the data within POST and PUT requests!!!
+// app.use(express.json());
 
 // Routes
 app.get('/', (req, res) => {
