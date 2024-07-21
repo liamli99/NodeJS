@@ -7,9 +7,6 @@ const cors = require('cors');
 const xss = require('xss-clean'); // Not supported!
 const rateLimit = require('express-rate-limit');
 
-const express = require('express');
-const app = express();
-
 const authRouter = require('./routes/auth');
 const jobsRouter = require('./routes/jobs');
 
@@ -19,19 +16,22 @@ const errorHandler = require('./middleware/error-handler');
 
 const connectDB = require('./db/connect');
 
+const express = require('express');
+const app = express();
 
-// Built-in Middleware
-app.use(express.json());
 
 // Third-pary Middleware
-app.use(helmet());
-app.use(cors());
-app.use(xss());
+app.set('trust proxy', 1); // https://express-rate-limit.mintlify.app/guides/troubleshooting-proxy-issues#the-global-limiter-problem
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000, // Remember requests for 15 min
   limit: 100 // Limit each IP to 100 requests per 'window' (here, per 15 min)
 }));
+app.use(helmet());
+app.use(cors());
+app.use(xss());
 
+// Built-in Middleware
+app.use(express.json());
 
 // Routes
 app.use('/api/v1/auth', authRouter);

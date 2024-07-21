@@ -5,8 +5,9 @@ const { BadRequestError } = require('../errors/index');
 const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
 
-// POST /api/v1/products/uploads, 'Choose File' button
-// Save the uploaded file to the server, note that this route doesn't require 'useTempFiles: true' in app.js!
+// POST /api/v1/products/uploads
+// 'Choose File' button
+// Save the uploaded file to the server! Note that this route doesn't require 'useTempFiles: true' in app.js!
 const uploadProductImageLocal = async (req, res) => {
     // Since we load 'express-fileupload', we have 'req.files' to access the uploaded file!
     console.log(req.files);
@@ -38,10 +39,11 @@ const uploadProductImageLocal = async (req, res) => {
     res.status(StatusCodes.OK).json({ image: { src: `/uploads/${productImage.name}` } });
 }
 
-// Save the uploaded file to a cloud service: Cloudinary!
+// Save the uploaded file to a cloud service: Cloudinary! Note that this route requires 'useTempFiles: true' in app.js!
 const uploadProductImageCloud = async (req, res) => {
     // Since we set 'useTempFiles: true' in app.js, the uploaded image is saved to a tmp folder!
     // Save the uploaded image to Cloudinary: Assets -> Media Library -> Folders, the folder name is 'upload-file'!
+    // TODO: upload_stream?
     const result = await cloudinary.uploader.upload(req.files.image.tempFilePath, {
         use_filename: true,
         folder: 'upload-file'

@@ -1,9 +1,6 @@
 require('dotenv').config();
 require('express-async-errors');
 
-const express = require('express');
-const app = express();
-
 const fileUpload = require('express-fileupload');
 const Cloudinary = require('cloudinary').v2;
 // These information is in: Programmable Media -> Dashboard -> Product Environment -> Go to API Keys
@@ -20,6 +17,8 @@ const errorHandler = require('./middleware/error-handler');
 
 const connectDB = require('./db/connect');
 
+const express = require('express');
+const app = express();
 
 
 app.use(express.static('public'));
