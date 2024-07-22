@@ -31,15 +31,15 @@ For this course, we will use CommonJS modules, but ES modules works exactly the 
 3. Built-in Modules: e.g. (1) OS (2) PATH (3) FS (4) HTTP. For each module, it can provide useful properties and methods! For more details, see https://nodejs.org/docs/latest/api/
 
 ## Node Package Manager (npm)
-'npm' comes bundled with Node.js and is the default package manager for Node.js, it helps developers share and reuse code!
+`npm` comes bundled with Node.js and is the default package manager for Node.js, it helps developers share and reuse code!
 
-1. Initialization
-(1) Manual approach: create a 'package.json' file in the root with necessary properties
+### Initialization
+(1) Manual approach: create a `package.json` file in the root with necessary properties
 (2) General approach: `npm init` (answer a series of questions step by step to set up the project) OR `npm init -y` (answer all the questions with default values), then a 'package.json' file will be generated!
 
 Note that 'package.json' file provides information about the project and is used to manage the project! For example, 'main' is a file that is the entry point of the project. 'scripts' is a dictionary that contains script commands that are run at various times in the lifecycle of the project, e.g. `{ "start": "node app.js", "dev": "nodemon app.js" }`, so that we can use `npm start` to run the start script and use `npm run dev` to run the dev script!
 
-1. Install packages
+### Install packages
 **Install packages as dependencies**, dependencies are packages required by the project to run in production!
 (1) Install a local package (use it in the current project), recommended!
 `npm install <packagename>`
@@ -53,21 +53,28 @@ Note that all the local packages we install are stored in node_modules folder an
 
 Normally we won't push node_modules folder to github, so that if we clone a Node.js project from github, we can run `npm install` to install all the packages in dependencies/devDependencies of package.json! However, if we want to manually install all the packages with certain versions, we can delete dependencies/devDependencies of package.json and delete package-lock.json file, then use `npm install <packagename>` to manually download the packages!!!  
 
-1. Use packages
+### Use packages
 Similar to modules, we can use require (CommonJS Modules) or import (ES Modules) to include the package! For more details, see https://www.npmjs.com/
 
+
+
+
 ## Useful packages
-1. nodemon
-It can automatically restart the project when the file changes, so that we don't have to manually stop and restart the project every time the file changes! This is similar to live server!   
+### nodemon 
+- [Tutorial](https://www.npmjs.com/package/nodemon)
+- `npm install nodemon -D`
+- It can automatically restart the node project when the file changes!
+- If we use `npm install nodemon -D` to install the package locally as dev dependency, then we can add `"start": "nodemon app.js"` to scripts of package.json so that we can use `npm start` to run the project using nodemon OR we can add `"dev": "nodemon app.js"` to scripts of package.json so that we can use `npm run dev` to run the project using nodemon! However, if we use `npm install -g nodemon` to install the package globally, then we can directly use `nodemon app.js` to run the project using nodemon!
 
-We always use `npm install nodemon -D` to install it locally as dev dependency, then we can add `"start": "nodemon app.js"` to scripts of package.json so that we can use `npm start` to run the project using nodemon OR we can add `"dev": "nodemon app.js"` to scripts of package.json so that we can use `npm run dev` to run the project using nodemon! However, if we use `npm install -g nodemon` to install it globally, then we can directly use `nodemon app.js` to run the project using nodemon!
+### dotenv
+- [Tutorial](https://www.npmjs.com/package/dotenv)
+- `npm install dotenv`
+- It loads environment variables from a `.env` file into `process.env`!
+- 1. Create a `.env` file in the root of the project to store environment variables and their values in the format `KEY=value`   
+  2. Add `require('dotenv').config();` in the beginning of the entry file (app.js)   
+  3. Use `process.env.KEY` to accesss the environment variable's value!
 
-2. dotenv
-It can help manage environment variables in the project!   
-
-We use `npm install dotenv` to install this package, then we create a '.env' file to contain the environment variables in the format `KEY=Value`!!! Then in the entry file (app.js), we can use `require('dotenv').config();` to load environment variables and use `process.env.KEY` to accesss environment variables!
-
-3. express-async-errors
+1. express-async-errors
 It can simplify error handling in async functions by automatically catching errors and passing them to the next error-handling middleware, so that we don't have to write try-catch blocks in each async route handler!   
 
 We use `npm install express-async-errors` to install this package! Then, (1) Load `require('express-async-errors')` in the entry file (app.js), (2) Remove all try catch blocks in async functions and only keep the code in try! This is becasue error in catch can be automatically passed to the next error-handling middleware!
