@@ -228,6 +228,7 @@ However, if we load 'express-async-errors' which can autamatically catch errors 
 (3) For all errors that occur in sync/async function, we can use `next` to directly pass the error to error-handling middleware! Pay attention that if there is further execution after next, we must write `return next` to exit the function to prevent further execution! This is similar to res.send/json! Different from `next`, `throw` can exit the function immediately!
 
 
+
 # MongoDB
 
 ## MongoDB Atlas
@@ -246,7 +247,7 @@ Structure: Organization (Liam) -> Project (Node and Express Course Project) -> C
 Collection is similar to table and Document is similar to record! Each document is composed of field-value pairs, similar to key-value pairs in JSON!  
 
 ## Mongoose
-General Tutorial: https://mongoosejs.com/
+Tutorial: https://mongoosejs.com/
 
 Connection: 
 https://mongoosejs.com/docs/connections.html
