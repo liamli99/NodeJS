@@ -1,9 +1,7 @@
 # Packages
 `npm install mongoose`
 `npm install express`
-
 `npm install dotenv`
-
 `npm install nodemon -D`
 
 # .env

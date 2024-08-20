@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-
 // Connection: https://mongoosejs.com/docs/connections.html
+
+const mongoose = require('mongoose');
 
 // uri is the connection string which is stored in .env!
 const connectDB = (uri) => {
