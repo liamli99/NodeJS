@@ -1,8 +1,8 @@
 // Populate a MongoDB database with product.json
 
 require('dotenv').config();
-const connectDB = require('./db/connect');
-const Product = require('./models/product');
+const connectDB = require('./connect');
+const Product = require('../models/product');
 const data = require('./products.json'); // An array of JSON!
 
 const start = async () => {
