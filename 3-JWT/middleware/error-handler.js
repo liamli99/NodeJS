@@ -1,5 +1,5 @@
 const CustomError = require('../errors/custom-error');
-const { StatusCodes } = require('http-status-codes'); // https://www.npmjs.com/package/http-status-codes
+const { StatusCodes } = require('http-status-codes');
 
 const errorHandler = (err, req, res, next) => {
   // Both BadRequestError and UnauthorizedError extend CustomError, so they are still instances of CustomError!
