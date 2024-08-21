@@ -61,44 +61,59 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
 
 ## Useful packages
 ### nodemon 
-- [Tutorial](https://www.npmjs.com/package/nodemon)
-- `npm install nodemon -D`
+- [Documentation](https://www.npmjs.com/package/nodemon)
 - It can automatically restart the node project when the file changes!
+- `npm install nodemon -D`
 - If we use `npm install nodemon -D` to install the package locally as dev dependency, then we can add `"start": "nodemon app.js"` to scripts of package.json so that we can use `npm start` to run the project using nodemon OR we can add `"dev": "nodemon app.js"` to scripts of package.json so that we can use `npm run dev` to run the project using nodemon! However, if we use `npm install -g nodemon` to install the package globally, then we can directly use `nodemon app.js` to run the project using nodemon!
 
 ### dotenv
-- [Tutorial](https://www.npmjs.com/package/dotenv)
-- `npm install dotenv`
+- [Documentation](https://www.npmjs.com/package/dotenv)
 - It loads environment variables from a `.env` file into `process.env`!
+- `npm install dotenv`
 - 1. Create a `.env` file in the root of the project to store environment variables and their values in the format `KEY=value`   
   2. Add `require('dotenv').config();` in the beginning of the entry file (app.js)   
   3. Use `process.env.KEY` to accesss the environment variable's value!
 
-1. express-async-errors
-It can simplify error handling in async functions by automatically catching errors and passing them to the next error-handling middleware, so that we don't have to write try-catch blocks in each async route handler!   
+### express-async-errors
+- It can simplify error handling in async functions by automatically catching errors (rejected or thrown) and passing them to the next error-handling middleware!
+- `npm install express-async-errors`
+- 1. Add `require('express-async-errors')` in the entry file (app.js)
+  2. Remove all try catch blocks in async functions and only keep the code in try! 
+- ***We might not need this package in Express 5.0!***
 
-We use `npm install express-async-errors` to install this package! Then, (1) Load `require('express-async-errors')` in the entry file (app.js), (2) Remove all try catch blocks in async functions and only keep the code in try! This is becasue error in catch can be automatically passed to the next error-handling middleware!
+### http-status-codes
+- [Documentation](https://www.npmjs.com/package/http-status-codes)
+- Constants enumerating the HTTP status codes
+- `npm install http-status-codes`
+- 1. `const { StatusCodes } = require('http-status-codes')`
+  2. Use `StatusCodes.CONSTANT`, all constants and corresponding http status codes are in documentation!
 
-4. jsonwebtoken
+### jsonwebtoken
+- [Documentation](https://jwt.io/)
+- JWT is an open standard that defines a compact and self-contained way for securely transmitting information between parties as a JSON object, it can be used in authorization and information exchange!
+- `npm install jsonwebtoken`
+
 It is used for creating and verifying JSON Web Tokens, and decoding their payloads!
-https://www.npmjs.com/package/jsonwebtoken
 
-5. http-status-codes
-https://www.npmjs.com/package/http-status-codes
 
-6. bcryptjs
+
+
+
+
+
+1. bcryptjs
 It can help hash the password!
 
-7. helmet
+1. helmet
 It helps secure the app by setting HTTP response headers
 
-8. cors
+1. cors
 CORS (Cross-origin resource sharing) is a mechanism that allows a web page to access restricted resources from a server on a domain different than the domain that served the web page! This package can be used to enable CORS with various options.
 
-9. xss-clean 
+1. xss-clean 
 NOT SUPPORTED!!!
 
-10. express-rate-limit
+1.  express-rate-limit
 It is used to limit reperated requests!
 https://www.npmjs.com/package/express-rate-limit
 
