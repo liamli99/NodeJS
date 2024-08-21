@@ -2,6 +2,7 @@ const UnauthorizedError = require('../errors/unauthorized');
 const jwt = require('jsonwebtoken');
 
 // Create a middleware that can verify the token before getting data in dashboard! So that this middleware should be loaded before dashboard!
+// Authentication: verify who a user is; Authorization: verify what a user has access to!
 const authentication = async (req, res, next) => {
     console.log(req.headers);
 

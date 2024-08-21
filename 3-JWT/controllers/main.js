@@ -10,10 +10,10 @@ const login = async (req, res, next) => {
 
     const { username, password } = req.body;
     if (!username || !password) {
-        // Since there is further execution after next, we must write 'return next' to exit the function to prevent further execution!!! Different from 'next', 'throw' can exit the function immediately!
+        // Since there is further execution after next, we must write 'return next' to exit the function to prevent further execution!!! 
         return next(new BadRequestError('Please provide your username and password'));
 
-        // Alternative solution, 'express-async-errors' can help catch errors (rejected or thrown) in async function and pass them to the next error-handling middleware!
+        // Alternative solution, 'express-async-errors' can help catch errors (rejected or thrown) in async function and pass them to the next error-handling middleware! Different from 'next', 'throw' can exit the function immediately!
         // throw new BadRequestError('Please provide your username and password');
     }
 
