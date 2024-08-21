@@ -48,7 +48,7 @@ const getAllProducts = async (req, res) => {
 
     // const products = await Product.find(req.query);
     // The return value of Model.find() is Query! Note that Queries are not Promises, but we can use them as Promises! The resolved value is an array of all documents that match the condition!
-    // However, if the condition has a property that is not in the schema (excluding sort, ...), then the resolved value is an empty array! So that we need to destructure all the properties of req.query and deal with them one by one instead of passing the whole req.query!
+    // However, if req.query includes sort, select, and more complexed functions, we need to destructure all the properties of req.query and deal with them one by one!!!
 
     // 1. Find
 
@@ -56,7 +56,7 @@ const getAllProducts = async (req, res) => {
     const { name, featured, company, numericFilters, sort, select } = req.query;
 
     // https://www.mongodb.com/docs/manual/reference/operator/query/regex/#mongodb-query-op.-regex
-    // Find all documents whose 'name' contains 'req.query.name' and is case-insensitive!
+    // Find all documents whose 'name' field contains 'req.query.name' and is case-insensitive!
     if (name) {
         queryObject.name = { $regex: name, $options: 'i' };
     }
@@ -71,9 +71,9 @@ const getAllProducts = async (req, res) => {
     }
 
     // Find all documents whose 'price' and 'rating' satisfy the numeric filters!
-    // An example request can be '/api/v1/products?numericFilters=price<=50,rating>4', so that numericFilters is 'price<=50,rating>4'!
+    // An example request can be '/api/v1/products?numericFilters=price<=50,rating>4', so that numericFilters is 'price<=50,rating>4', we want to transform it to { price: { $lte: 50 }, rating: { $gt: 4 } }
     if (numericFilters) {
-        // This is a JavaScript Object, note that keys can be symbols or strings!
+        // This is a JavaScript Object whose keys are strings, note that keys can be symbols or strings!
         // Comparison query operators: https://www.mongodb.com/docs/manual/reference/operator/query/
         const operatorMap = {
             '>': '$gt',
@@ -89,7 +89,7 @@ const getAllProducts = async (req, res) => {
             return `-${operatorMap[match]}-`
         });
         
-        // If '/api/v1/products?numericFilters=price<=50,rating>4', then filters is 'price-lte-50,rating-$gt-4'!
+        // If '/api/v1/products?numericFilters=price<=50,rating>4', then filters is 'price-$lte-50,rating-$gt-4'!
         console.log(filters);
 
         const options = ['price', 'rating'];
@@ -98,8 +98,8 @@ const getAllProducts = async (req, res) => {
             const [field, operator, value] = item.split('-');
             if (options.includes(field)) {
                 // Bracket notation 
-                // We want to get something like { price: { $gt: 30 } }
-                // The following code can be shortened to: queryObject[field]= { [operator]: Number(value) };
+                // We want to get something like { price: { $lte: 50 } }
+                // The following code can be shortened using dynamic object key: queryObject[field]= { [operator]: Number(value) };
                 queryObject[field]= {};
                 queryObject[field][operator] = Number(value);
             }
@@ -136,11 +136,12 @@ const getAllProducts = async (req, res) => {
         result = result.select(select);
     }
 
-    // 4. Skip + Limit, the following is used for pagination!
+    // 4. Skip + Limit, the following is used for pagination! 
 
     const page = Number(req.query.page) || 1; // Current page number
     const limit = Number(req.query.limit) || 10; // The maximum number of documents on a page
-    const skip = (page - 1) * limit; // The number of documents to skip, this is calculated by page and limit!
+    
+    const skip = (page - 1) * limit; // The number of documents to skip, this is calculated by page and limit, not provided by user!!!
 
     // Note that result is also Query because the return value of Query.skip().limit() is Query!
     // Page 1: [1, limit]; Page 2: [limit + 1, 2 * limit]; ...
@@ -149,7 +150,7 @@ const getAllProducts = async (req, res) => {
     result.skip(skip).limit(limit);
 
 
-    // The resolved value is an array of all documents that match all the above conditions!
+    // The resolved value is an array of all documents that match all the above conditions or empty array!
     const products = await result;
 
     res.status(200).json({ products });

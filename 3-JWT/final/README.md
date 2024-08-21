@@ -7,4 +7,4 @@
 `npm install nodemon -D`
 
 ## .env
-PORT, JWT_SECRET
+- JWT_SECRET
