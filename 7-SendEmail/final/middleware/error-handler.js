@@ -16,7 +16,7 @@ const errorHandler = (err, req, res, next) => {
   }
   
   else {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err })
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: 'Something is wrong' });
   }
 }
 

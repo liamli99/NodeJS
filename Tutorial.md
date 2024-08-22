@@ -89,12 +89,12 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
   2. Use `StatusCodes.CONSTANT`, all constants and corresponding http status codes are in documentation!
 
 ### jsonwebtoken
-- [Documentation](https://jwt.io/)
-- JWT is an open standard that defines a compact and self-contained way for securely transmitting information between parties as a JSON object, it can be used in authorization and information exchange!
+- [Documentation](https://jwt.io/), [Tutorial](https://www.npmjs.com/package/jsonwebtoken)
+- JWT (JSON Web Token) is an open standard that defines a compact and self-contained way for securely transmitting information between parties as a JSON object, it can be used in authorization and information exchange!
 - `npm install jsonwebtoken`
-
-It is used for creating and verifying JSON Web Tokens, and decoding their payloads!
-
+- 1. Load JWT: `const jwt = require('jsonwebtoken')`
+  2. Sign the token: `const token = jwt.sign(payload, secret, options)`
+  3. Verify the token: `const decoded = jwt.verify(token, secret)`
 
 
 
