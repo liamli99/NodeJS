@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
-const { BadRequestError, UnauthorizedError } = require('../errors/index');
+const { BadRequestError, UnauthorizedError } = require('../errors');
 
 // POST /api/v1/auth/register
 const register = async (req, res) => {

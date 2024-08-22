@@ -1,6 +1,6 @@
 const Job = require('../models/Job');
 const { StatusCodes } = require('http-status-codes');
-const { BadRequestError, NotFoundError } = require('../errors/index');
+const { BadRequestError, NotFoundError } = require('../errors');
 
 // Note that in app.js we load authentication middleware before jobsRouter to verify the token before creating/reading/updating/deleting the job! So that all the requests' headers must include 'Authorization: Bearer <token>'!!! Here '<token>' is created during authRouter (register and login)! In order to save time, in Postman, we can write Post-response Script in register and login to automatically save the created token as global variable, then in job-related routes, we can simply add this token in Authorization instead of manually adding it in Headers!!!
 
