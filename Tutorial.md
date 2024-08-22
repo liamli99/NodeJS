@@ -265,7 +265,7 @@ Login: https://account.mongodb.com/account/login
 (3) Manage database users: SECURITY - Database Access
 (4) Manage the IP access list: SECURITY - Network Access
 (5) Connect to the cluster: Data Services - Connect - Drivers - Connection string
-(6) Create database inside the cluster: Data Services - Add data - Create Database on Atlas. Note that we don't have to create the database and collection in advance for all the projects, because the database name can be included in the connection string and the collection name can be determined by the model name, after running the app, they will be created!
+(6) Create database inside the cluster: Data Services - Add data - Create Database on Atlas. **Note that we don't have to manually create the database and collection in advance for all the projects, because the database name can be included in the connection string and the collection name can be determined by the model name, after running the app, they will be created!**
 
 Structure: Organization (Liam) -> Project (Node and Express Course Project) -> Cluster (NodeExpressProject) -> Database -> Collection -> Document   
 
