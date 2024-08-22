@@ -17,10 +17,21 @@ const JobSchema = new mongoose.Schema({
         default: 'pending'
     },
     createdBy: {
-        type: mongoose.Types.ObjectId, // The value of '_id' field of a document
-        ref: 'User', // reference to 'User' model
+        type: mongoose.Types.ObjectId, 
+        ref: 'User',
         required: [true, 'User is required']
-    }
-}, { timestamps: true }); // This automatically adds 'createdAt' and 'updatedAt' fields to JobSchema, they are set when the document is created and updated!
+    },
+
+    // Additional fields
+    jobType: {
+        type: String,
+        enum: ['full-time', 'part-time', 'remote', 'internship'],
+        default: 'full-time'
+    },
+    jobLocation: {
+        type: String,
+        required: [true, 'Job Location is required']
+    },
+}, { timestamps: true }); 
  
 module.exports = mongoose.model('Job', JobSchema);

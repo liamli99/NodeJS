@@ -4,19 +4,23 @@ const { BadRequestError, UnauthorizedError } = require('../errors');
 
 // POST /api/v1/auth/register
 const register = async (req, res) => {
-    // We should not store the original password into the database! Instead, we should hash the original password and store the hashed password! This is because if the database is leaked, the hacker cannot know the original password because hashing is a one-way function!!! We can do this in 'models/User.js' using mongoose middleware!!!
-
-    // We need to create token for each registered user! Different from the JWT project, here we can do this in 'models/User.js' using mongoose instance method!!!
-
-
-    // Note that the rejected error also includes violations against schema validation rules in 'models/User.js'! So that name, email, and password are validated using mongoose SchemaType validators!
-    // Note that req.body.password will be hashed before saving to the database using mongoose middleware!
     const user = await User.create(req.body);
-
-    // Here user is the created document, it has an instance method 'createJWT' to create token for user!
     const token = user.createJWT();
 
-    res.status(StatusCodes.CREATED).json({ user, token });
+    // // The following code doesn't work because user is a document instead of an object, so that spread syntax doesn't work!
+    // res.status(StatusCodes.CREATED).json({
+    //     user: { ...user, token }
+    // });
+
+    res.status(StatusCodes.CREATED).json({
+        user: {
+            name: user.name,
+            email: user.email,
+            lastName: user.lastName,
+            location: user.location,
+            token
+        }
+    });
 }
 
 // POST /api/v1/auth/login
@@ -31,16 +35,54 @@ const login = async (req, res) => {
         throw new UnauthorizedError('User Not Found');
     }
 
-    // Check the password using the mongoose instance method
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
         throw new UnauthorizedError('Password Not Correct');
     }
 
-    // Create the token for user using the mongoose instance method
     const token = user.createJWT();
 
-    res.status(StatusCodes.OK).json({ user, token });
+    res.status(StatusCodes.CREATED).json({
+        user: {
+            name: user.name,
+            email: user.email,
+            lastName: user.lastName,
+            location: user.location,
+            token
+        }
+    });
 }
 
-module.exports = { register, login };
+// PATCH /api/v1/auth/updateUser
+// Update name, email, lastName, and location in Profile!
+const updateUser = async (req, res) => {
+    // Note that 'req.user' is created during authentication middleware!
+    const user = await User.findOneAndUpdate({ _id: req.user.userId }, req.body, {
+        new: true,
+        runValidators: true
+    });
+
+    // Since we may update the user name and it is part of JWT payload, we should create/sign a new token!
+    const token = user.createJWT();
+
+    res.status(StatusCodes.CREATED).json({
+        user: {
+            name: user.name,
+            email: user.email,
+            lastName: user.lastName,
+            location: user.location,
+            token
+        }
+    });
+}
+
+
+// // Update password! Note that I use save instead of findOneAndUpdate because save can trigger pre middleware in models/User.js to hash the password before saving it to database!
+// const updatePassword = async (req, res) => {
+//     const user = await User.findOne({ _id: req.user.userId });
+
+//     user.password = req.body.password;
+//     await user.save();
+// }
+
+module.exports = { register, login, updateUser };

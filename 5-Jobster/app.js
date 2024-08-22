@@ -4,10 +4,11 @@ require('express-async-errors');
 const express = require('express');
 const app = express();
 
+const path = require('path');
+
 // Security
-const { rateLimit } = require('express-rate-limit');
+// We also remove cors becasue we don't want external JS apps to access our API (except our front-end)!
 const helmet = require('helmet');
-const cors = require('cors');
 const xss = require('xss-clean'); // Not supported!
 
 const authRouter = require('./routes/auth');
@@ -22,23 +23,22 @@ const connectDB = require('./db/connect');
 
 
 // Third-pary Middleware
-// https://express-rate-limit.mintlify.app/guides/troubleshooting-proxy-issues#the-global-limiter-problem
-app.set('trust proxy', 1); 
-app.use(rateLimit({
-  windowMs: 15 * 60 * 1000, // Remember requests for 15 min
-  limit: 5 // Limit each IP to 5 requests per 'window' (here, per 15 min)
-}));
 app.use(helmet());
-app.use(cors());
 app.use(xss());
 
 // Built-in Middleware
+app.use(express.static(path.resolve(__dirname, 'client/build')));
 app.use(express.json());
 
 // Routes
 app.use('/api/v1/auth', authRouter);
-// Load authentication middleware before jobsRouter to verify the token before creating/reading/updating/deleting the job!
 app.use('/api/v1/jobs', authentication, jobsRouter);
+
+// For any other get requests, the server serves index.html!
+// This is very important, we should place it at this exact position!
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+});
 
 // Custom Middleware
 app.use(notFound);
