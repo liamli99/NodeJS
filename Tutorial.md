@@ -51,7 +51,9 @@ Note that 'package.json' file provides information about the project and is used
 
 Note that all the local packages we install are stored in node_modules folder and are included in dependencies/devDependencies of package.json! After we install a local package, a 'package-lock.json' file will be generated!!   
 
-Normally we won't push node_modules folder to github, so that if we clone a Node.js project from github, we can run `npm install` to install all the packages in dependencies/devDependencies of package.json! However, if we want to manually install all the packages with certain versions, we can delete dependencies/devDependencies of package.json and delete package-lock.json file, then use `npm install <packagename>` to manually download the packages!!!  
+Normally we won't push node_modules folder to github, so that if we clone a Node.js project from github, we can run `npm install` to install all the packages in dependencies/devDependencies of package.json! However, if we want to manually install all the packages with certain versions, we can delete dependencies/devDependencies of package.json and delete package-lock.json file, then use `npm install <packagename>` to manually download all the packages!!!  
+
+**When deploying the app on a cloud service, we should also add `"engines": { "node": "..." }` to specify the Node version!**
 
 ### Use packages
 Similar to modules, we can use require (CommonJS Modules) or import (ES Modules) to include the package! For more details, see https://www.npmjs.com/
@@ -96,32 +98,41 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
   2. Sign the token: `const token = jwt.sign(payload, secret, options)`
   3. Verify the token: `const decoded = jwt.verify(token, secret)`
 
+### bcryptjs
+- [Documentation](https://www.npmjs.com/package/bcryptjs)
+- It can help hash the password to ensure security!
+- `npm install bcryptjs`
+- 1. Load bcrypt: `const bcript = require('bcryptjs')`
+  2. Generate salt: `const salt = await bcript.genSalt(num)`
+  3. Hash password: `const newPassword = await bcript.hash(password, salt)` 
+  4. Check password: `const isMatch = await bcript.compare(password, newPassword)`
 
+### helmet
+- [Documentation](https://www.npmjs.com/package/helmet)
+- It helps secure Express app by setting HTTP response headers
+- `npm install helmet`
+- 1. Load helmet: `const helmet = require('helmet')`
+  2. Use helmet: `app.use(helmet())`
 
+### cors
+- [Documentation](https://www.npmjs.com/package/cors)
+- CORS (Cross-origin resource sharing) is a mechanism that allows a web page to access restricted resources from a server on a domain different than the domain that served the web page! This package can be used to enable CORS with various options.
+- 1. Load cors: `const cors = require('cors')`
+  2. Use cors: `app.use(cors())`
 
-
-
-1. bcryptjs
-It can help hash the password!
-
-1. helmet
-It helps secure the app by setting HTTP response headers
-
-1. cors
-CORS (Cross-origin resource sharing) is a mechanism that allows a web page to access restricted resources from a server on a domain different than the domain that served the web page! This package can be used to enable CORS with various options.
-
-1. xss-clean 
+### xss-clean 
 NOT SUPPORTED!!!
 
-1.  express-rate-limit
+### express-rate-limit
 It is used to limit reperated requests!
 https://www.npmjs.com/package/express-rate-limit
 
 
-11. express-fileupload
+
+1.  express-fileupload
 https://www.npmjs.com/package/express-fileupload
 
-12. cloudinary
+1.  cloudinary
 Tutorial: https://console.cloudinary.com/pm/c-a9b9a36336c6867b314571bb11651f/getting-started
 
 Configuration information (Cloud name, API Key, and API Secret): Programmable Media -> Dashboard -> Product Environment -> Go to API Keys

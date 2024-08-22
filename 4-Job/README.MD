@@ -14,6 +14,9 @@
 `npm install xss-clean` // Warn! Not supported!
 `npm install nodemon -D`
 
+## Engines
+Add `"engines": { "node": "20.14.0" }` to package.json!
+
 ## .env
 MONGO_URI
 JWT_SECRET
