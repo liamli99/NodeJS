@@ -12,7 +12,7 @@ const TaskSchema = new mongoose.Schema({
     },
     completed: {
         type: Boolean,
-        default: false // If the value of completed is not provided, then it will be false!
+        default: false // If the value of completed is not provided, then it will be false! 'default' is provided when the field is not required!!!
     }
 });
 

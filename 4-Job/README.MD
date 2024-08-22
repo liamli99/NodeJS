@@ -15,12 +15,16 @@
 `npm install nodemon -D`
 
 ## Engines
-Add `"engines": { "node": "20.14.0" }` to package.json!
+Add `"engines": { "node": "20.14.0" }` to package.json to specify the node version when deploying the app!
 
 ## .env
 MONGO_URI
 JWT_SECRET
 JWT_LIFETIME
+
+## Run the app
+1. Without nodemon: `npm start`
+2. With nodemon: `npm run dev`
 
 #### User Model
 
