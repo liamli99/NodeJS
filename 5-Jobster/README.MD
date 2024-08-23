@@ -37,43 +37,15 @@ Make sure to create a test user in the MongoDB in advance:
 ```
 Note that email and password must be exactly the same as above (in order to match client/src/pages/Register.js), so that when we click the Demo App button, we login as test user!
 
+## Populate
+- Generate fake data: [Mockaroo](https://www.mockaroo.com/)
+- For field that has enum, choose Custom List as type! For createdBy, choose Custom List as type with only one value: the ObjectID of test user! For createdAt (don't forget), choose Datetime as type and ISO 8601 as format!
+![configuration](image.png)
+- Run `node db/populate.js` to populate the mongoDB database with MOCK_DATA.json!
 
 
-#### Setup Mock Data
 
-- [Mockaroo](https://www.mockaroo.com/)
-- create mock-data.json (root)
-- provide test user id
 
-#### Populate DB
-
-- create populate.js
-
-populate.js
-
-```js
-require('dotenv').config();
-
-const mockData = require('./mock-data.json');
-
-const Job = require('./models/Job');
-const connectDB = require('./db/connect');
-
-const start = async () => {
-  try {
-    await connectDB(process.env.MONGO_URI);
-
-    await Job.create(mockData);
-    console.log('Success!!!');
-    process.exit(0);
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-};
-
-start();
-```
 
 #### Modify Get All Jobs
 

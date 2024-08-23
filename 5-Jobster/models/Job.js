@@ -32,6 +32,6 @@ const JobSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Job Location is required']
     },
-}, { timestamps: true }); 
+}, { timestamps: true }); // This automatically adds 'createdAt' and 'updatedAt' fields to JobSchema, they are set when the document is created and updated!
  
 module.exports = mongoose.model('Job', JobSchema);
