@@ -7,7 +7,7 @@ const app = express();
 const path = require('path');
 
 // Security
-// We also remove cors becasue we don't want external JS apps to access our API (except our front-end)!
+// We remove cors becasue we don't want external JS apps to access our API (except our front-end)!
 const helmet = require('helmet');
 const xss = require('xss-clean'); // Not supported!
 

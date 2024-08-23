@@ -8,6 +8,7 @@
 `npm install bcryptjs`
 `npm install helmet`
 `npm install xss-clean` // Warn! Not supported!
+`npm install moment`
 `npm install nodemon -D`
 
 ## Engines
@@ -46,70 +47,6 @@ Note that email and password must be exactly the same as above (in order to matc
 
 
 
-
-#### Modify Get All Jobs
-
-- latest mongoose version change
-
-controllers/jobs.js
-
-```js
-const getAllJobs = async (req, res) => {
-  const { search, status, jobType, sort } = req.query;
-
-  // protected route
-  const queryObject = {
-    createdBy: req.user.userId,
-  };
-
-  if (search) {
-    queryObject.position = { $regex: search, $options: 'i' };
-  }
-  // add stuff based on condition
-
-  if (status && status !== 'all') {
-    queryObject.status = status;
-  }
-  if (jobType && jobType !== 'all') {
-    queryObject.jobType = jobType;
-  }
-
-  // NO AWAIT
-
-  let result = Job.find(queryObject);
-
-  // chain sort conditions
-
-  if (sort === 'latest') {
-    result = result.sort('-createdAt');
-  }
-  if (sort === 'oldest') {
-    result = result.sort('createdAt');
-  }
-  if (sort === 'a-z') {
-    result = result.sort('position');
-  }
-  if (sort === 'z-a') {
-    result = result.sort('-position');
-  }
-
-  //
-
-  // setup pagination
-  const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 10;
-  const skip = (page - 1) * limit;
-
-  result = result.skip(skip).limit(limit);
-
-  const jobs = await result;
-
-  const totalJobs = await Job.countDocuments(queryObject);
-  const numOfPages = Math.ceil(totalJobs / limit);
-
-  res.status(StatusCodes.OK).json({ jobs, totalJobs, numOfPages });
-};
-```
 
 #### Make Test User Read-Only
 
@@ -218,111 +155,8 @@ app.set('trust proxy', 1);
 app.use(express.static(path.resolve(__dirname, './client/build')));
 ```
 
-#### Setup Stats Route
 
-controllers/jobs
 
-```js
-const showStats = (req, res) => {
-  res
-    .status(StatusCodes.OK)
-    .json({ defaultStats: {}, monthlyApplications: [] });
-};
-
-module.exports = {
-  createJob,
-  deleteJob,
-  getAllJobs,
-  updateJob,
-  getJob,
-  showStats,
-};
-```
-
-routes/jobs.js
-
-```js
-const express = require('express');
-
-const router = express.Router();
-const {
-  createJob,
-  deleteJob,
-  getAllJobs,
-  updateJob,
-  getJob,
-  showStats,
-} = require('../controllers/jobs');
-
-router.route('/').post(createJob).get(getAllJobs);
-router.route('/stats').get(showStats);
-router.route('/:id').get(getJob).delete(deleteJob).patch(updateJob);
-
-module.exports = router;
-```
-
-- npm install moment
-- import mongoose and moment
-
-controllers/jobs
-
-```js
-const mongoose = require('mongoose');
-const moment = require('moment');
-```
-
-- [Javascript Nuggets - Reduce Basics](https://youtu.be/3WkW9nrS2mw)
-- [Javascript Nuggets - Reduce (object example)](https://youtu.be/5BFkp8JjLEY)
-
-controllers/jobs
-
-```js
-const showStats = async (req, res) => {
-  let stats = await Job.aggregate([
-    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
-    { $group: { _id: '$status', count: { $sum: 1 } } },
-  ]);
-
-  stats = stats.reduce((acc, curr) => {
-    const { _id: title, count } = curr;
-    acc[title] = count;
-    return acc;
-  }, {});
-
-  const defaultStats = {
-    pending: stats.pending || 0,
-    interview: stats.interview || 0,
-    declined: stats.declined || 0,
-  };
-
-  let monthlyApplications = await Job.aggregate([
-    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
-    {
-      $group: {
-        _id: { year: { $year: '$createdAt' }, month: { $month: '$createdAt' } },
-        count: { $sum: 1 },
-      },
-    },
-    { $sort: { '_id.year': -1, '_id.month': -1 } },
-    { $limit: 6 },
-  ]);
-  monthlyApplications = monthlyApplications
-    .map((item) => {
-      const {
-        _id: { year, month },
-        count,
-      } = item;
-      const date = moment()
-        .month(month - 1)
-        .year(year)
-        .format('MMM Y');
-      return { date, count };
-    })
-    .reverse();
-
-  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
-};
-```
 
 #### Deploy
 
