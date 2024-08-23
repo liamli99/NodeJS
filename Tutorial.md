@@ -144,38 +144,59 @@ NOT SUPPORTED!!!
 ### yamljs
 
 
-
-
-
 ### moment
 - [Documentation](https://momentjs.com/docs/#/use-it/node-js/)
 - It is used for parsing, validating, manipulating, and formatting dates!
 - `npm install moment`
 
 
+### express-fileupload
+- [Documentation](https://www.npmjs.com/package/express-fileupload), [Tutorial](https://github.com/richardgirges/express-fileupload/tree/master/example#basic-file-upload)
+- It is used for uploading files
+- `npm install express-fileupload`
+- 1. Load: `const fileUpload = require('express-fileupload')`
+  2. Use: `app.use(fileUpload())`
+  3. Suppose the input is `<input name="image", type="file">`, then we can use `req.files.image` to access the specific uploaded file!
 
-1.  express-fileupload
-https://www.npmjs.com/package/express-fileupload
+### cloudinary
+- [Documentation](https://www.npmjs.com/package/cloudinary?activeTab=readme), [Tutorial](https://console.cloudinary.com/pm/c-a9b9a36336c6867b314571bb11651f/getting-started)
+- It allows us to integrate our app with Cloudinary
+- `npm install cloudinary`
+- 
+  1. Load and Configure in app.js, the configuration information (Cloud name, API Key, and API Secret) is at [Programmable Media -> Dashboard -> Product Environment -> Go to API Keys](https://console.cloudinary.com/settings/c-a9b9a36336c6867b314571bb11651f/api-keys): 
+  ```js
+  const Cloudinary = require('cloudinary').v2;
+  Cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET
+  });
+  ```
 
-1.  cloudinary
-Tutorial: https://console.cloudinary.com/pm/c-a9b9a36336c6867b314571bb11651f/getting-started
+  2. Upload files to Cloudinary at [Assets -> Media Library -> Folders](https://console.cloudinary.com/console/c-a9b9a36336c6867b314571bb11651f/media_library/folders/home?view_mode=mosaic): 
+  ```js
+  // Make sure in app.js we have `app.use(fileUpload({ useTempFiles: true }))`!
+  // The folder name is 'upload-file'
+  const result = await cloudinary.uploader.upload(req.files.image.tempFilePath, {
+    use_filename: true,
+    folder: 'upload-file'
+  });
+  // The url of the uploaded file
+  console.log(result.secure_url);
+  ```
 
-Configuration information (Cloud name, API Key, and API Secret): Programmable Media -> Dashboard -> Product Environment -> Go to API Keys
-https://console.cloudinary.com/settings/c-a9b9a36336c6867b314571bb11651f/api-keys
-
-Stored files (images, videos, etc): Assets -> Media Library -> Folders
-https://console.cloudinary.com/console/c-a9b9a36336c6867b314571bb11651f/media_library/folders/home?view_mode=list
 
 
-13. Nodemailer
+
+1.  Nodemailer
 Send emails: https://nodemailer.com/
-14. Ethereal
+1.  Ethereal
 A fake SMTP service that is used only for testing! It allows you to send emails without actually delivering them!
 https://ethereal.email/
-15.  SendGrid
+1.   SendGrid
 A cloud-based SMTP service that is used in production!
 
-16. Stripe
+1.  Stripe
 Tutorial: https://docs.stripe.com/payments/quickstart
 API Keys: https://dashboard.stripe.com/test/apikeys
 Payments: https://dashboard.stripe.com/test/payments
