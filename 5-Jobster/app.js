@@ -7,7 +7,6 @@ const app = express();
 const path = require('path');
 
 // Security
-// We remove cors becasue we don't want external JS apps to access our API (except our front-end)!
 const helmet = require('helmet');
 const xss = require('xss-clean'); // Not supported!
 
@@ -23,6 +22,10 @@ const connectDB = require('./db/connect');
 
 
 // Third-pary Middleware
+// We remove cors becasue we don't want external JS apps to access our API (except our front-end)!
+// We use express-rate-limit in routes/auth.js instead of app.js because we don't want to apply rate limit to all the requests!
+// https://express-rate-limit.mintlify.app/guides/troubleshooting-proxy-issues#the-global-limiter-problem
+app.set('trust proxy', 1); 
 app.use(helmet());
 app.use(xss());
 
