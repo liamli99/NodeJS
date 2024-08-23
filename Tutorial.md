@@ -119,6 +119,7 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
 - CORS (Cross-origin resource sharing) is a mechanism that allows a web page to access restricted resources from a server on a domain different than the domain that served the web page! This package can be used to enable CORS with various options.
 - 1. Load cors: `const cors = require('cors')`
   2. Use cors: `app.use(cors())`
+- If we don't want external JS apps to access our API (except our front-end), then don't load cors!!!
 
 ### xss-clean 
 NOT SUPPORTED!!!
@@ -126,6 +127,11 @@ NOT SUPPORTED!!!
 ### express-rate-limit
 It is used to limit reperated requests!
 https://www.npmjs.com/package/express-rate-limit
+
+### moment
+- [Documentation](https://momentjs.com/docs/#/use-it/node-js/)
+- It is used for parsing, validating, manipulating, and formatting dates!
+- `npm install moment`
 
 
 
@@ -286,6 +292,11 @@ https://mongoosejs.com/docs/schematypes.html
 
 Model: 
 https://mongoosejs.com/docs/models.html
+
+Aggregation:
+https://mongoosejs.com/docs/api/model.html#Model.aggregate()
+https://www.mongodb.com/docs/manual/core/aggregation-pipeline/
+
 
 CRUD:
 (1) Create:

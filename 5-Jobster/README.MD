@@ -25,7 +25,7 @@ JWT_LIFETIME
 
 ## Client
 - The `client` folder is the complete front end React app built with CRA, this is exactly the same as the Jobster app built in the React course, the only difference is that the `baseURL` in utils/axios.js is our current server!
-- The `build` folder contains the optimized and production-ready app built with `npm run build`! This is what we will use as the front end!!!
+- The `build` folder contains the optimized and production-ready app built with `npm run build`! This is what we will use for the front end!!! If we push all the codes to GitHub and use GitHub to deploy, remember to also push this build folder because normally gitignore will ignore this build folder!
 
 ## Test User
 Make sure to create a test user in the MongoDB in advance: 
@@ -155,43 +155,4 @@ app.set('trust proxy', 1);
 app.use(express.static(path.resolve(__dirname, './client/build')));
 ```
 
-
-
-
-#### Deploy
-
-- remove existing git repo
-
-- add reverse() in showStats
-
-controllers/jobs.js
-
-```js
-monthlyApplications = monthlyApplications
-  .map((item) => {
-    const {
-      _id: { year, month },
-      count,
-    } = item;
-    const date = moment()
-      .month(month - 1)
-      .year(year)
-      .format('MMM Y');
-    return { date, count };
-  })
-  .reverse();
-```
-
-- remove Procfile
-- remove engines from package.json
-
-```json
-"engines": {
-    "node": "16.x"
-  }
-```
-
-- fix build folder (remove /build from client/.gitignore)
-- setup new github repo
-- deploy to render
 
