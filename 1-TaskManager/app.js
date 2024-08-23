@@ -25,7 +25,7 @@ app.use(notFound); // Handle all undefined routes
 app.use(errorHandler); // Handle errors! Note that error-handling middleware is defined last, after other app.use() and routes call!!!
 
 // We should first connect to the database, then listen for connections!
-// Note that we don't have to set the PORT environment variable in .env because this is always provided by cloud services! If not, then use 3000 instead!
+// Note that we don't have to set the PORT environment variable in .env because this is always provided by cloud services! If not, then use 3000 instead! However, if we want to override the provided port, we can set it in .env!
 const port = process.env.PORT || 3000;
 const start = async () => {
     try {

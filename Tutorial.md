@@ -30,35 +30,38 @@ For this course, we will use CommonJS modules, but ES modules works exactly the 
 
 3. Built-in Modules: e.g. (1) OS (2) PATH (3) FS (4) HTTP. For each module, it can provide useful properties and methods! For more details, see https://nodejs.org/docs/latest/api/
 
+
+
+
+
+
 ## Node Package Manager (npm)
 `npm` comes bundled with Node.js and is the default package manager for Node.js, it helps developers share and reuse code!
 
 ### Initialization
-(1) Manual approach: create a `package.json` file in the root with necessary properties
-(2) General approach: `npm init` (answer a series of questions step by step to set up the project) OR `npm init -y` (answer all the questions with default values), then a 'package.json' file will be generated!
+- 1. Manual approach: create a `package.json` file in the root with necessary properties
+  2. General approach: `npm init` (answer a series of questions step by step to set up the project) OR `npm init -y` (answer all the questions with default values), then a 'package.json' file will be generated!
 
-Note that 'package.json' file provides information about the project and is used to manage the project! For example, 'main' is a file that is the entry point of the project. 'scripts' is a dictionary that contains script commands that are run at various times in the lifecycle of the project, e.g. `{ "start": "node app.js", "dev": "nodemon app.js" }`, so that we can use `npm start` to run the start script and use `npm run dev` to run the dev script!
+- Note that 'package.json' file provides information about the project and is used to manage the project! For example, 'main' is a file that is the entry point of the project. 'scripts' is a JSON that contains script commands that are run at various times in the lifecycle of the project, e.g. `{ "start": "node app.js", "dev": "nodemon app.js" }`, so that we can use `npm start` to run the start script and use `npm run dev` to run the dev script!
+
+- **When deploying the app on a cloud service, we should also add `"engines": { "node": "..." }` to specify the Node version!**
 
 ### Install packages
-**Install packages as dependencies**, dependencies are packages required by the project to run in production!
-(1) Install a local package (use it in the current project), recommended!
-`npm install <packagename>`
-(2) Install a global package (use it in any project)
-`sudo npm install -g <packagename>`
+- **Install packages as dependencies**, dependencies are packages required by the project to run in production!
+    - Install a local package (use it in the current project), recommended!
+    `npm install <packagename>`
+    - Install a global package (use it in any project)
+    `sudo npm install -g <packagename>`
 
-**Install packages as dev dependencies**, dev dependencies are packages that are only needed for local development and testing!
-`npm install <packagename> --save-dev` OR `npm install <packagename> -D`
+- **Install packages as dev dependencies**, dev dependencies are packages that are only needed for local development and testing!
+  `npm install <packagename> --save-dev` OR `npm install <packagename> -D`
 
-Note that all the local packages we install are stored in node_modules folder and are included in dependencies/devDependencies of package.json! After we install a local package, a 'package-lock.json' file will be generated!!   
+- Note that all the local packages we install are stored in `node_modules` folder and are included in dependencies/devDependencies of `package.json`! After we install a local package, a `package-lock.json` file will be generated!!   
 
-Normally we won't push node_modules folder to github, so that if we clone a Node.js project from github, we can run `npm install` to install all the packages in dependencies/devDependencies of package.json! However, if we want to manually install all the packages with certain versions, we can delete dependencies/devDependencies of package.json and delete package-lock.json file, then use `npm install <packagename>` to manually download all the packages!!!  
-
-**When deploying the app on a cloud service, we should also add `"engines": { "node": "..." }` to specify the Node version!**
+- Normally we won't push node_modules folder to github, so that if we clone a Node.js project from github, we should run `npm install` to install all the packages in dependencies/devDependencies of package.json! However, if we want to manually install all the packages with certain versions, we can delete dependencies/devDependencies of package.json and delete package-lock.json file, then use `npm install <packagename>` to manually download all the packages!!!  
 
 ### Use packages
 Similar to modules, we can use require (CommonJS Modules) or import (ES Modules) to include the package! For more details, see https://www.npmjs.com/
-
-
 
 
 ## Useful packages
@@ -87,7 +90,7 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
 - [Documentation](https://www.npmjs.com/package/http-status-codes)
 - Constants enumerating the HTTP status codes
 - `npm install http-status-codes`
-- 1. `const { StatusCodes } = require('http-status-codes')`
+- 1. Load the library: `const { StatusCodes } = require('http-status-codes')`
   2. Use `StatusCodes.CONSTANT`, all constants and corresponding http status codes are in documentation!
 
 ### jsonwebtoken
@@ -117,6 +120,7 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
 ### cors
 - [Documentation](https://www.npmjs.com/package/cors)
 - CORS (Cross-origin resource sharing) is a mechanism that allows a web page to access restricted resources from a server on a domain different than the domain that served the web page! This package can be used to enable CORS with various options.
+- `npm install cors`
 - 1. Load cors: `const cors = require('cors')`
   2. Use cors: `app.use(cors())`
 - If we don't want external JS apps to access our API (except our front-end), then don't load cors!!!
@@ -125,8 +129,23 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
 NOT SUPPORTED!!!
 
 ### express-rate-limit
-It is used to limit reperated requests!
-https://www.npmjs.com/package/express-rate-limit
+- [Documentation](https://express-rate-limit.mintlify.app/overview)
+- It is used to limit reperated requests!
+- `npm install express-rate-limit`
+- 1. Load the library: `const { rateLimit } = require('express-rate-limit')`
+  2. [Use it](https://express-rate-limit.mintlify.app/quickstart/usage): `app.use(rateLimit({ ... }))`
+- [The Global Limiter Problem](https://express-rate-limit.mintlify.app/guides/troubleshooting-proxy-issues)
+
+### swagger-ui-express
+- 1. Export the collection from Postman
+  2. Import the exported docs.json to [APIMatic](https://app.apimatic.io/dashboard)
+
+
+### yamljs
+
+
+
+
 
 ### moment
 - [Documentation](https://momentjs.com/docs/#/use-it/node-js/)

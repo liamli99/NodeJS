@@ -24,6 +24,7 @@ const connectDB = require('./db/connect');
 // Third-pary Middleware
 // https://express-rate-limit.mintlify.app/guides/troubleshooting-proxy-issues#the-global-limiter-problem
 app.set('trust proxy', 1); 
+// Apply rate limit to all requests
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000, // Remember requests for 15 min
   limit: 5 // Limit each IP to 5 requests per 'window' (here, per 15 min)
