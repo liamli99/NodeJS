@@ -201,6 +201,24 @@ Tutorial: https://docs.stripe.com/payments/quickstart
 API Keys: https://dashboard.stripe.com/test/apikeys
 Payments: https://dashboard.stripe.com/test/payments
 
+### validator
+- [Documentation](https://www.npmjs.com/package/validator)
+- It is used for String validators and sanitizers
+- `npm install validator`
+- 1. Load: `const validator = require('validator')`
+  2. Use: 
+  ```js
+  const userSchema = new mongoose.Schema({
+    email: {
+      validate: {
+        validator: validator.isEmail,
+        message: 'Please provide valid email'
+      },
+    }
+  });
+  ```
+
+
 ## Event Loop
 The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
 https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick

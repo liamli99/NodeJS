@@ -2,6 +2,8 @@ const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthorizedError } = require('../errors');
 
+// The server sends JWT as part of the response, the frontend then stores the token in Local Storage! When the frontend sends requests, the token is retrieved from the Local Storage and sent as part of the request header 'Authorization: Bearer <token>'
+
 // POST /api/v1/auth/register
 const register = async (req, res) => {
     // We should not store the original password into the database! Instead, we should hash the original password and store the hashed password! This is because if the database is leaked, the hacker cannot know the original password because hashing is a one-way function!!! We can do this in 'models/User.js' using mongoose middleware!!!

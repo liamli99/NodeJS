@@ -38,6 +38,7 @@ Make sure to create a test user in the MongoDB in advance:
 }
 ```
 Note that email and password must be exactly the same as above (in order to match client/src/pages/Register.js), so that when we click the Demo App button, we login as test user!
+Also make sure this test user's id is exactly the same as the one in middleware/testUser.js!
 
 ## Populate
 - Generate fake data: [Mockaroo](https://www.mockaroo.com/)

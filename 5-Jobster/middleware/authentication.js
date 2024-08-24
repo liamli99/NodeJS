@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { UnauthorizedError } = require('../errors');
 
-// All the requests' headers must include 'Authorization: Bearer <token>'!!!
+// All the requests' headers must include 'Authorization: Bearer <token>'!!! This toke is created in controllers/auth.js!
 const authentication = async (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization || !authorization.startsWith('Bearer ')) {
