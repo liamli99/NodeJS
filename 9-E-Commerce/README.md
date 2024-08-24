@@ -7,8 +7,10 @@
 `npm install jsonwebtoken`
 `npm install bcryptjs`
 `npm install helmet`
+`npm install cors`
 `npm install xss-clean` // Warn! Not supported!
-`npm install moment`
+`npm install express-rate-limit`
+`npm install validator`
 `npm install nodemon -D`
 
 ## Engines
