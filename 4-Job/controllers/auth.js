@@ -2,7 +2,7 @@ const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthorizedError } = require('../errors');
 
-// The server sends JWT as part of the response, the frontend then stores the token in Local Storage! When the frontend sends requests, the token is retrieved from the Local Storage and sent as part of the request header 'Authorization: Bearer <token>'
+// The server sends JWT as part of the response, the frontend then stores the token in Local Storage! When the frontend sends requests, the token is retrieved from the Local Storage and sent as part of the request header 'Authorization: Bearer <token>'! Then the authentication middleware can retrieve the token from the request header!
 
 // POST /api/v1/auth/register
 const register = async (req, res) => {

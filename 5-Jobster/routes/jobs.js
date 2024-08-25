@@ -9,7 +9,7 @@ const testUser = require('../middleware/testUser');
 router.route('/').get(getAllJobs).post(testUser, createJob);
 
 // /api/v1/jobs/stats
-// This line of code must be placed before '/:id'!!!!!!!
+// This line of code must be placed before `router.route('/:id')`!!!
 router.route('/stats').get(showStats);
 
 // /api/v1/jobs/:id

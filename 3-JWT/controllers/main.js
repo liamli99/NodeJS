@@ -33,7 +33,7 @@ const login = async (req, res, next) => {
     res.status(200).json({ msg: 'User Created', token });
 }
 
-// Since this project doesn't include a database, after clicking the Submit button, the token is created and stored in the Local Storage! After clicking the Get Data button, the token is retrieved from the Local Storage and sent as part of the request header!
+// After clicking the Submit button, the server sends JWT as part of the response, the frontend then stores the token in Local Storage! After clicking the Get Data button, the token is retrieved from the Local Storage and sent as part of the request header 'Authorization: Bearer <token>'! Then the authentication middleware can retrieve the token from the request header!
 
 // GET /api/v1/dashboard
 // Get Data button

@@ -15,9 +15,9 @@ const authentication = async (req, res, next) => {
     // Note that token is created (signed) during authRouter (register and login)!
     try {
         // If the token is valid, then return the decoded payload ({ userId: ..., userName: ... }) used in signing the token!
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
         // Modify the request object! So that we can access the user information in the next middleware!
-        req.user = { userId: decoded.userId, userName: decoded.userName };
+        req.user = { userId: payload.userId, userName: payload.userName };
         // Pass to the next middleware, which are all job-related routes (jobsRouter) in this project!
         next();
     } catch (error) {

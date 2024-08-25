@@ -218,6 +218,14 @@ Payments: https://dashboard.stripe.com/test/payments
   });
   ```
 
+  ### cookie-parser
+  - [Documentation](https://www.npmjs.com/package/cookie-parser)
+  - Parse the cookies
+  - `npm install cookie-parser`
+  - 1. Load: `const cookieParser = require('cookie-parser')`
+    2. Use: `app.use(cookieParser())` or `app.use(cookieParser(secret))`
+    3. Access the cookie: `req.cookies` or `req.signedCookies`
+
 
 ## Event Loop
 The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
