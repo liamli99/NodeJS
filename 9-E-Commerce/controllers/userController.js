@@ -2,8 +2,10 @@ const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const { NotFoundError, BadRequestError, UnauthenticatedError } = require('../errors');
 const { createPayload, setCookies } = require('../utils/jwt');
+const checkPermission = require('../utils/checkPermission');
 
 // GET /api/v1/users
+// Only admin can get all users! We put authorization middlware before getAllUsers in routes/userRouter.js!
 const getAllUsers = async (req, res) => {
   const users = await User.find({ role: 'user' }).select('-password');
   
@@ -11,12 +13,16 @@ const getAllUsers = async (req, res) => {
 }
 
 // GET /api/v1/users/:id
+// Only admin or user himself can get single user! It is more complexed so that we use utils/checkPermission.js instead of authorization middleware!
 const getSingleUser = async (req, res) => {
   const user = await User.findOne({ _id: req.params.id }).select('-password');
 
   if (!user) {
     throw new NotFoundError('User Not Found');
   }
+
+  // Only admin or user himself can get his info!
+  checkPermission(req.user, user._id);
 
   res.status(StatusCodes.OK).json({ user });
 }
@@ -33,6 +39,8 @@ const updateUser = async (req, res) => {
     new: true,
     runValidators: true
   });
+
+  // This user must exist because it is authenticated! The authentication middleware is placed before userRouter!
 
   // Since we may update the user name and it is part of JWT payload, we should set a new token as a signed cookie!
   const payload = createPayload(user);
