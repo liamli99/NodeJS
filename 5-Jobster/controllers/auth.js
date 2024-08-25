@@ -56,13 +56,15 @@ const login = async (req, res) => {
 }
 
 // PATCH /api/v1/auth/updateUser
-// Update name, email, lastName, and location in Profile!
+// Update name, email, lastName, and location in Profile! No password!
 const updateUser = async (req, res) => {
     // Note that 'req.user' is created during authentication middleware!
     const user = await User.findOneAndUpdate({ _id: req.user.userId }, req.body, {
         new: true,
         runValidators: true
     });
+
+    // This user must exist because it is authenticated! The authentication middleware is placed before updateUser!
 
     // Since we may update the user name and it is part of JWT payload, we should create/sign a new token!
     const token = user.createJWT();
