@@ -3,8 +3,11 @@ const router = express.Router();
 
 const { getAllUsers, getSingleUser, showCurrentUser, updateUser, updateUserPassword } = require('../controllers/userController');
 
+const authorization = require('../middleware/authorization');
+
 // /api/v1/users
-router.route('/').get(getAllUsers);
+// Only admin can get all users!
+router.route('/').get(authorization(['admin']), getAllUsers);
 
 // Note that the following codes must be placed before `router.route('/:id')`!!!
 // /api/v1/users/showMe

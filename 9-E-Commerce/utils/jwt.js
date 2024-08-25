@@ -1,5 +1,14 @@
 const jwt = require('jsonwebtoken');
 
+// This is used in controllers/authController.js and controllers/userController.js
+const createPayload = (user) => {
+  return {
+    userId: user._id,
+    userName: user.name,
+    role: user.role
+  }
+}
+
 const createJWT = (payload) => {
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_LIFETIME
@@ -13,7 +22,7 @@ const verifyJWT = (token) => {
   return jwt.verify(token, process.env.JWT_SECRET);
 }
 
-// This is used in controllers/authController.js
+// This is used in controllers/authController.js and controllers/userController.js
 const setCookies = (res, payload) => {
   const token = createJWT(payload);
   
@@ -36,4 +45,4 @@ const clearCookies = (res) => {
   });
 }
 
-module.exports = { createJWT, verifyJWT, setCookies, clearCookies }
+module.exports = { createPayload, createJWT, verifyJWT, setCookies, clearCookies }

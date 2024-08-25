@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthenticatedError } = require('../errors');
-const { setCookies, clearCookies } = require('../utils/jwt');
+const { createPayload, setCookies, clearCookies } = require('../utils/jwt');
 
 // In previous projects, the server sends JWT as part of the response, the frontend then stores the token in Local Storage! When the frontend sends requests, the token is retrieved from the Local Storage and sent as part of the request header 'Authorization: Bearer <token>'!!! Then the authentication middleware can retrieve the token from the request header!
 // In this project, the server sets the JWT as a signed cookie! When the frontend sends requests, the authentication middleware can retrieve the token by using 'req.signedCookies.token' since we load 'cookie-parser' in app.js!
@@ -16,12 +16,7 @@ const register = async (req, res) => {
 
   const user = await User.create({ name, email, password, role });
   
-  const payload = {
-    userId: user._id,
-    userName: user.name,
-    role: user.role
-  };
-  
+  const payload = createPayload(user);
   setCookies(res, payload);
 
   res.status(StatusCodes.CREATED).json({ user: payload });
@@ -44,15 +39,10 @@ const login = async (req, res) => {
       throw new UnauthenticatedError('Password Not Correct');
   }
 
-  const payload = {
-    userId: user._id,
-    userName: user.name,
-    role: user.role
-  };
-  
+  const payload = createPayload(user);
   setCookies(res, payload);
 
-  res.status(StatusCodes.CREATED).json({ user: payload });
+  res.status(StatusCodes.OK).json({ user: payload });
 }
 
 // GET /api/v1/auth/logout

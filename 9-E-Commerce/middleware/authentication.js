@@ -3,9 +3,6 @@ const { verifyJWT } = require('../utils/jwt');
 
 // In controllers/authController.js, the server sets the JWT as a signed cookie! Since we load 'cookie-parser' in app.js, the authentication middleware can retrieve the token by using 'req.signedCookies.token'! 
 // We don't need to include 'Authorization: Bearer <token>' in request header!
-
-// Authentication: verify who a user is; Authorization: verify what a user has access to!
-
 const authentication = async (req, res, next) => {
     const token = req.signedCookies.token;
 
