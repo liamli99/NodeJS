@@ -1,10 +1,10 @@
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthorizedError } = require('../errors');
-const { createJWT } = require('../utils/jwt');
+const { setCookies, clearCookies } = require('../utils/jwt');
 
 // In previous projects, the server sends JWT as part of the response, the frontend then stores the token in Local Storage! When the frontend sends requests, the token is retrieved from the Local Storage and sent as part of the request header 'Authorization: Bearer <token>'!!! Then the authentication middleware can retrieve the token from the request header!
-// In this project, the server sets the JWT as a cookie! When the frontend sends requests, the authentication middleware can retrieve the token by using 'req.cookies' or 'req.signedCookies' if we load 'cookie-parser' in app.js!
+// In this project, the server sets the JWT as a signed cookie! When the frontend sends requests, the authentication middleware can retrieve the token by using 'req.signedCookies.token' since we load 'cookie-parser' in app.js!
 
 
 // POST /api/v1/auth/register
@@ -21,14 +21,8 @@ const register = async (req, res) => {
     userName: user.name,
     role: user.role
   };
-  const token = createJWT(payload);
-
-  const oneDay = 1000 * 60 * 60 * 24;
-  res.cookie('token', token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + oneDay)
-  });
-
+  
+  setCookies(res, payload);
 
   res.status(StatusCodes.CREATED).json({ user: payload });
 }
@@ -50,22 +44,24 @@ const login = async (req, res) => {
       throw new UnauthorizedError('Password Not Correct');
   }
 
-  const token = user.createJWT();
+  const payload = {
+    userId: user._id,
+    userName: user.name,
+    role: user.role
+  };
+  
+  setCookies(res, payload);
 
-  res.status(StatusCodes.CREATED).json({
-    user: {
-      name: user.name,
-      email: user.email,
-      lastName: user.lastName,
-      location: user.location,
-      token
-    }
-  });
+  res.status(StatusCodes.CREATED).json({ user: payload });
 }
 
 // GET /api/v1/auth/logout
+// In previous projects, there is no logout! This is because when the user logout, the frontend simply removes the token from the Local Storage!
+// In this project, since we use cookie, when the user logout, we need to manually clear the cookie!
 const logout = async (req, res) => {
-  res.send('logout');
+  clearCookies(res);
+
+  res.status(StatusCodes.OK).send('logout');
 }
 
 module.exports = { register, login, logout };

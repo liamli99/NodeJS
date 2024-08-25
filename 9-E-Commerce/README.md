@@ -11,6 +11,7 @@
 `npm install xss-clean` // Warn! Not supported!
 `npm install express-rate-limit`
 `npm install validator`
+`npm install cookie-parser`
 `npm install nodemon -D`
 
 ## Engines

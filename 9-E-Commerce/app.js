@@ -10,10 +10,12 @@ const helmet = require('helmet');
 const cors = require('cors');
 const xss = require('xss-clean'); // Not supported!
 
-const authRouter = require('./routes/authRouter');
-// const jobsRouter = require('./routes/jobs');
+const cookieParser = require('cookie-parser');
 
-// const authentication = require('./middleware/authentication');
+const authRouter = require('./routes/authRouter');
+const userRouter = require('./routes/userRouter');
+
+const authentication = require('./middleware/authentication');
 const notFound = require('./middleware/not-found');
 const errorHandler = require('./middleware/error-handler');
 
@@ -33,12 +35,15 @@ app.use(helmet());
 app.use(cors());
 app.use(xss());
 
+// Since controllers/authController.js sets JWT as a signed cookie, we should pass a secret string to cookieParser to enable signed cookie! Now the authentication middleware can use 'req.signedCookies.token' to access the token!
+app.use(cookieParser(process.env.JWT_SECRET));
+
 // Built-in Middleware
 app.use(express.json());
 
 // Routes
 app.use('/api/v1/auth', authRouter);
-// app.use('/api/v1/jobs', authentication, jobsRouter);
+app.use('/api/v1/users', authentication, userRouter);
 
 
 // Custom Middleware
