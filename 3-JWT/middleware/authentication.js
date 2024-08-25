@@ -1,4 +1,4 @@
-const UnauthorizedError = require('../errors/unauthorized');
+const UnauthenticatedError = require('../errors/unauthenticated');
 const jwt = require('jsonwebtoken');
 
 // Create a middleware that can verify the token before getting data in dashboard! So that this middleware should be loaded before dashboard!
@@ -9,10 +9,10 @@ const authentication = async (req, res, next) => {
 
     const { authorization } = req.headers;
     if (!authorization || !authorization.startsWith('Bearer ')) {
-        return next(new UnauthorizedError('No token provided'));
+        return next(new UnauthenticatedError('No token provided'));
 
         // Alternative solution
-        // throw new UnauthorizedError('No token provided');
+        // throw new UnauthenticatedError('No token provided');
     }
 
     const token = authorization.split(' ')[1];
@@ -31,10 +31,10 @@ const authentication = async (req, res, next) => {
         // Pass to the next middleware, which is dashboard in this project!
         next();
     } catch (error) {
-        next(new UnauthorizedError('Not authorized'));
+        next(new UnauthenticatedError('Not authenticated'));
 
         // Alternative solution
-        // throw new UnauthorizedError('Not authorized');
+        // throw new UnauthenticatedError('Not authenticated');
     }
 }
 

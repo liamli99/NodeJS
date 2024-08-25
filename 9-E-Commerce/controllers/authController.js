@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
-const { BadRequestError, UnauthorizedError } = require('../errors');
+const { BadRequestError, UnauthenticatedError } = require('../errors');
 const { setCookies, clearCookies } = require('../utils/jwt');
 
 // In previous projects, the server sends JWT as part of the response, the frontend then stores the token in Local Storage! When the frontend sends requests, the token is retrieved from the Local Storage and sent as part of the request header 'Authorization: Bearer <token>'!!! Then the authentication middleware can retrieve the token from the request header!
@@ -36,12 +36,12 @@ const login = async (req, res) => {
 
   const user = await User.findOne({ email });
   if (!user) {
-      throw new UnauthorizedError('User Not Found');
+      throw new UnauthenticatedError('User Not Found');
   }
 
   const isMatch = await user.comparePassword(password);
   if (!isMatch) {
-      throw new UnauthorizedError('Password Not Correct');
+      throw new UnauthenticatedError('Password Not Correct');
   }
 
   const payload = {
