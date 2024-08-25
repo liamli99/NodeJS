@@ -5,9 +5,9 @@ const testUser = (req, res, next) => {
   // Make sure this is the test user's ObjectID!
   if (req.user.userId === '66c7953c7da4359d6fe9a3ae') {
     throw new BadRequestError('Test User. Read Only!');
-  } else {
-    next();
   }
+  
+  next();
 }
 
 module.exports = testUser;

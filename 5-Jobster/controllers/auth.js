@@ -44,7 +44,7 @@ const login = async (req, res) => {
 
     const token = user.createJWT();
 
-    res.status(StatusCodes.CREATED).json({
+    res.status(StatusCodes.OK).json({
         user: {
             name: user.name,
             email: user.email,
@@ -67,7 +67,7 @@ const updateUser = async (req, res) => {
     // Since we may update the user name and it is part of JWT payload, we should create/sign a new token!
     const token = user.createJWT();
 
-    res.status(StatusCodes.CREATED).json({
+    res.status(StatusCodes.OK).json({
         user: {
             name: user.name,
             email: user.email,
@@ -77,14 +77,5 @@ const updateUser = async (req, res) => {
         }
     });
 }
-
-
-// // Update password! Note that I use save instead of findOneAndUpdate because save can trigger pre middleware in models/User.js to hash the password before saving it to database!
-// const updatePassword = async (req, res) => {
-//     const user = await User.findOne({ _id: req.user.userId });
-
-//     user.password = req.body.password;
-//     await user.save();
-// }
 
 module.exports = { register, login, updateUser };
