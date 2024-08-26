@@ -16,9 +16,10 @@ const ProductSchema = new mongoose.Schema({
     required: [true, 'Description is required'],
     maxlength: [1000, 'Description cannot be more than 1000 characters']
   },
+  // uploaded image url
   image: {
     type: String,
-    required: true
+    required: [true, 'Image is required']
   },
   category: {
     type: String,
@@ -47,7 +48,7 @@ const ProductSchema = new mongoose.Schema({
   },
   inventory: {
     type: Number, 
-    required: [true, 'Inventory is required']
+    default: 10
   },
   averageRating: {
     type: Number,

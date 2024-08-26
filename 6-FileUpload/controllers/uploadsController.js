@@ -5,6 +5,8 @@ const { BadRequestError } = require('../errors/index');
 const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
 
+// If we want to use Postman to upload the file, we can go to Body -> form-data -> Key (choose 'File'), Value (Select file from local machine)!
+
 // POST /api/v1/products/uploads
 // 'Choose File' button
 // Save the uploaded file to local (../public/uploads)! Note that this doesn't require 'useTempFiles: true' in app.js!
@@ -17,7 +19,7 @@ const uploadProductImageLocal = async (req, res) => {
         throw new BadRequestError('No File Uploaded');
     }
 
-    // If we use Postman -> Body -> form-data to upload the file, then the Key value should be 'image'!
+    // If we use Postman -> Body -> form-data to upload the file, then the Key should be 'image'!
     // If the frontend uses FormData, then the first argument should be 'image'; If the frontend only uses input, then the input should be '<input name="image", type="file">'!
     // So that we can use `req.files.image` to access the specific uploaded file!
     const productImage = req.files.image;
@@ -37,6 +39,7 @@ const uploadProductImageLocal = async (req, res) => {
     await productImage.mv(imagePath);
 
     // Send the image url back as response, we will use it as 'image' field when creating the product
+    // Note that the url is not '/public/uploads/...' becasue app.js serves static files from public directory!
     res.status(StatusCodes.OK).json({ image: { src: `/uploads/${productImage.name}` } });
 }
 

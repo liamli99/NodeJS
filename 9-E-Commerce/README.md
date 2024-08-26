@@ -12,6 +12,7 @@
 `npm install express-rate-limit`
 `npm install validator`
 `npm install cookie-parser`
+`npm install express-fileupload`
 `npm install nodemon -D`
 
 ## Engines
