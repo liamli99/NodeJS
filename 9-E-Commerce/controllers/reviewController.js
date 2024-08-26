@@ -57,7 +57,7 @@ const updateReview = async (req, res) => {
   // Only admin or user himself can delete his review!
   checkPermission(req.user, review.user);
 
-  // Here we use save instead of findOneAndUpdate because save can trigger post save middleware in models/User.js to hash the password before saving it to database!!!
+  // Here we use save instead of findOneAndUpdate because save can trigger post save middleware in models/Review.js to calculate and update average rating and number of reviews for the product after saving the review to database!!!
   review.rating = req.body.rating;
   review.title = req.body.title;
   review.comment = req.body.comment;
@@ -79,7 +79,7 @@ const deleteReview = async (req, res) => {
   // Only admin or user himself can delete his review!
   checkPermission(req.user, review.user);
 
-  // Here we use deleteOne instead of findOneAndDelete because deleteOne can trigger deleteOne middleware in models/User.js to hash the password before saving it to database!!!
+  // Here we use deleteOne instead of findOneAndDelete because deleteOne can trigger post deleteOne middleware in models/Review.js to calculate and update average rating and number of reviews for the product after deleting the review!
   await review.deleteOne();
 
   res.status(StatusCodes.OK).json({ review });

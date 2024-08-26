@@ -77,6 +77,7 @@ ProductSchema.virtual('reviews', {
 })
 
 // Different from save, document.deleteOne() does not trigger deleteOne middleware for legacy reasons! We need to add { document: true, query: false }!
+// Delete all associated reviews before deleting the product!
 ProductSchema.pre('deleteOne', { document: true, query: false }, async function() {
   await this.model('Review').deleteMany({ product: this._id });
 })
