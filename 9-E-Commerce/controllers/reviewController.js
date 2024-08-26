@@ -22,7 +22,12 @@ const createReview = async (req, res) => {
 
 // GET /api/v1/reviews
 const getAllReviews = async (req, res) => {
-  const reviews = await Review.find({});
+  // Populate: https://mongoosejs.com/docs/populate.html
+  // Review model has a product field, which is ObjectId and reference to Product model, so that we can reference documents in products collection! Now each review's product is an object with product's name, price, and company!
+  const reviews = await Review.find({}).populate({
+    path: 'product',
+    select: 'name price company'
+  });
 
   res.status(StatusCodes.OK).json({ reviews, count: reviews.length });
 }
@@ -52,7 +57,7 @@ const updateReview = async (req, res) => {
   // Only admin or user himself can delete his review!
   checkPermission(req.user, review.user);
 
-  // Here we use save instead of findOneAndUpdate because save can trigger pre middleware in models/User.js to hash the password before saving it to database!!!
+  // Here we use save instead of findOneAndUpdate because save can trigger post save middleware in models/User.js to hash the password before saving it to database!!!
   review.rating = req.body.rating;
   review.title = req.body.title;
   review.comment = req.body.comment;
@@ -74,7 +79,7 @@ const deleteReview = async (req, res) => {
   // Only admin or user himself can delete his review!
   checkPermission(req.user, review.user);
 
-  // Here we use deleteOne instead of findOneAndDelete because deleteOne can trigger pre middleware in models/User.js to hash the password before saving it to database!!!
+  // Here we use deleteOne instead of findOneAndDelete because deleteOne can trigger deleteOne middleware in models/User.js to hash the password before saving it to database!!!
   await review.deleteOne();
 
   res.status(StatusCodes.OK).json({ review });

@@ -65,7 +65,7 @@ const updateUserPassword = async (req, res) => {
       throw new UnauthenticatedError('Password Not Correct');
   }
 
-  // Here we use save instead of findOneAndUpdate because save can trigger pre middleware in models/User.js to hash the password before saving it to database!!!
+  // Here we use save instead of findOneAndUpdate because save can trigger pre save middleware in models/User.js to hash the password before saving it to database!!!
   user.password = newPassword;
   await user.save();
 

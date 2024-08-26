@@ -363,6 +363,24 @@ Aggregation:
 https://mongoosejs.com/docs/api/model.html#Model.aggregate()
 https://www.mongodb.com/docs/manual/core/aggregation-pipeline/
 
+Populate: 
+https://mongoosejs.com/docs/populate.html
+https://mongoosejs.com/docs/api/model.html#Model.populate()
+
+### Virtual:
+- [Tutorial](https://mongoosejs.com/docs/tutorials/virtuals.html)
+- [Tutorial](https://mongoosejs.com/docs/guide.html#virtuals)
+- [API](https://mongoosejs.com/docs/api/schema.html#Schema.prototype.virtual())
+
+### Virtual Populate:
+- [Tutorial](https://mongoosejs.com/docs/tutorials/virtuals.html#populate)
+- [Tutorial](https://mongoosejs.com/docs/populate.html#populate-virtuals)
+
+Middleware: https://mongoosejs.com/docs/middleware.html
+
+Instance methods: https://mongoosejs.com/docs/guide.html#methods
+
+
 
 CRUD:
 (1) Create:
@@ -390,9 +408,6 @@ https://mongoosejs.com/docs/queries.html
 https://mongoosejs.com/docs/api/model.html#Model.findOneAndDelete()
 https://mongoosejs.com/docs/api/model.html#Model.deleteMany()
 
-Middleware: https://mongoosejs.com/docs/middleware.html
-
-Instance methods: https://mongoosejs.com/docs/guide.html#methods
 
 
 ## JWT

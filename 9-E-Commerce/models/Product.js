@@ -54,11 +54,31 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  numOfReviews: {
+    type: Number,
+    default: 0
+  },
   user: {
     type: mongoose.Types.ObjectId, 
     ref: 'User',
     required: [true, 'User is required']
   }
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true } } ); // By default virtuals will not be included when we pass a document to res.json!
+
+// https://mongoosejs.com/docs/tutorials/virtuals.html
+// https://mongoosejs.com/docs/populate.html#populate-virtuals
+// https://mongoosejs.com/docs/api/schema.html#Schema.prototype.virtual()
+// A virtual is a property that is not stored in MongoDB, it is typically used for computed properties on documents!
+// A review has only one product, so that Review model can have product field; However, a product can have many reviews, so that Product model cannot have all their reviews because it can lead to performance issues! To solve the problem, we can use virtual populate to call populate on a virtual property that has a ref option!
+ProductSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'product'
+})
+
+// Different from save, document.deleteOne() does not trigger deleteOne middleware for legacy reasons! We need to add { document: true, query: false }!
+ProductSchema.pre('deleteOne', { document: true, query: false }, async function() {
+  await this.model('Review').deleteMany({ product: this._id });
+})
 
 module.exports = mongoose.model('Product', ProductSchema);

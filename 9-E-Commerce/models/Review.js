@@ -33,4 +33,17 @@ const ReviewSchema = new mongoose.Schema({
 // Create a compound unique index! It means that a user can only leave one review per product!!!
 ReviewSchema.index({ product: 1, user: 1 }, { unique: true });
 
+ReviewSchema.methods.calculateAverageRating = async function(productId) {
+  console.log(productId);
+}
+
+ReviewSchema.post('save', async function() {
+  await this.calculateAverageRating(this.product);
+});
+
+// Different from save, document.deleteOne() does not trigger deleteOne middleware for legacy reasons! We need to add { document: true, query: false }!
+ReviewSchema.post('deleteOne', { document: true, query: false }, async function() {
+  await this.calculateAverageRating(this.product);
+});
+
 module.exports = mongoose.model('Review', ReviewSchema);

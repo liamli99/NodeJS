@@ -106,6 +106,7 @@ const deleteJob = async (req, res) => {
 }
 
 // GET /api/v1/jobs/stats
+// Aggregation!!!
 const showStats = async (req, res) => {
     // Note that req.user.userId is a String! We need to convert it to an ObjectId because $match expects types to match exactly!!! However, when using create and find functions, mongoose automatically handles the conversion!!!
     let stats = await Job.aggregate([

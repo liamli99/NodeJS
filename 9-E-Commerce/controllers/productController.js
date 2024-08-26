@@ -22,7 +22,8 @@ const getAllProducts = async (req, res) => {
 // GET /api/v1/products/:id
 const getSingleProduct = async (req, res) => {
   const { id } = req.params;
-  const product = await Product.findOne({ _id: id });
+  // Different from reviewController's getAllReviews, here it is virtual populate!!! 'reviews' is a virtual of Product model! Now product has a new property reviews which is an array of reviews!
+  const product = await Product.findOne({ _id: id }).populate('reviews');
 
   if (!product) {
     throw new NotFoundError('Product Not Found');
@@ -51,13 +52,15 @@ const updateProduct = async (req, res) => {
 // Only admin can delete product
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
-  const product = await Product.findOneAndDelete({ _id: id });
+  const product = await Product.findOne({ _id: id });
 
   if (!product) {
     throw new NotFoundError('Product Not Found');
   }
 
-  // Here we use remove instead of findOneAndDelete because remove can trigger pre middleware in models/User.js to hash the password before saving it to database!!!
+  // Here we use deleteOne instead of findOneAndDelete because deleteOne can trigger pre deleteOne middleware in models/Product.js to delete all associated reviews before deleting the product!!!
+  // Alternatively, we can simply write: await Review.deleteMany({ product: id })!
+  await product.deleteOne();
 
   res.status(StatusCodes.OK).json({ product });
 }
