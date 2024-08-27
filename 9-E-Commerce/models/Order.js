@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Nested Schema!
-const SingleCartItemSchema = new mongoose.Schema({
+const SingleOrderItemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -44,9 +44,9 @@ const OrderSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Total is required'],
   },
-  cartItems: {
-    type: [SingleCartItemSchema],
-    required: [true, 'Cart item is required']
+  orderItems: {
+    type: [SingleOrderItemSchema],
+    required: [true, 'Order item is required']
   },
   status: {
     type: String,
@@ -64,7 +64,7 @@ const OrderSchema = new mongoose.Schema({
   },
   paymentIntentId: {
     type: String,
-    required: [true, 'Payment intent ID is required']
+    default: 'none'
   }
 }, { timestamps: true });
 

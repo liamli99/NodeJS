@@ -13,6 +13,7 @@
 `npm install validator`
 `npm install cookie-parser`
 `npm install express-fileupload`
+`npm install stripe`
 `npm install nodemon -D`
 
 ## Engines
@@ -22,6 +23,7 @@ Add `"engines": { "node": "20.14.0" }` to package.json to specify the node versi
 MONGO_URI
 JWT_SECRET
 JWT_LIFETIME
+STRIPE_KEY
 
 ## Run the app
 1. Without nodemon: `npm start`
