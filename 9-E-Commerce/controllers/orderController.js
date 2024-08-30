@@ -80,13 +80,7 @@ const getSingleOrder = async (req, res) => {
 // Only admin or user himself can update his order's status and paymentIntentId! The request body only needs to include paymentIntentId and status will be set to 'paid'!
 const updateOrder = async (req, res) => {
   const { id } = req.params;
-  const order = await Order.findOneAndUpdate({ _id: id }, { 
-    status: 'paid', 
-    paymentIntentId: req.body.paymentIntentId 
-  }, {
-    new: true, 
-    runValidators: true 
-  });
+  const order = await Order.findOne({ _id: id });
 
   if (!order) {
     throw new NotFoundError('Order Not Found');
@@ -94,6 +88,11 @@ const updateOrder = async (req, res) => {
 
   // Only admin or user himself can update his order!
   checkPermission(req.user, order.user);
+
+  // Here we use save instead of findOneAndUpdate is not because save can trigger middleware in models/Order.js, it is because we want to check permission before updating order!!!
+  order.status = 'paid';
+  order.paymentIntentId = req.body.paymentIntentId;
+  await order.save();
 
   res.status(StatusCodes.OK).json({ order });
 }

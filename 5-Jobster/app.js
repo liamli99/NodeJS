@@ -39,7 +39,6 @@ app.use('/api/v1/jobs', authentication, jobsRouter);
 
 // For any other get requests, the server serves index.html!
 // This is very important, we should place it at this exact position! 
-// React Router?
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
 });

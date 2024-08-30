@@ -1,15 +1,5 @@
 
 
-#### Update Order
-
-- [] get order id
-- [] get paymentIntentId (req.body)
-- [] get order
-- [] if does not exist - 404
-- [] check permissions
-- [] set paymentIntentId and status as 'paid'
-- [] order.save()
-
 #### Create Docs
 
 - [] [Docgen Library] (https://github.com/thedevsaddam/docgen)
