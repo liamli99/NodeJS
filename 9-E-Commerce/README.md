@@ -14,6 +14,7 @@
 `npm install cookie-parser`
 `npm install express-fileupload`
 `npm install stripe`
+`npm install express-mongo-sanitize`
 `npm install nodemon -D`
 
 ## Engines

@@ -22,7 +22,7 @@ const connectDB = require('./db/connect');
 
 
 // Third-pary Middleware
-// We remove cors becasue we don't want external JS apps to access our API (except our front-end)!
+// We remove cors becasue we don't want external apps to access our API! This won't affect our frontend because it is on the same domain as the server!
 // We use express-rate-limit in routes/auth.js instead of app.js because we don't want to apply rate limit to all the requests!
 // https://express-rate-limit.mintlify.app/guides/troubleshooting-proxy-issues#the-global-limiter-problem
 app.set('trust proxy', 1); 
@@ -30,6 +30,7 @@ app.use(helmet());
 app.use(xss());
 
 // Built-in Middleware
+// The frontend and backend are on the same domain so that there is no need to enable cors!!! We can also choose to deploy them separately!!!
 app.use(express.static(path.resolve(__dirname, 'client/build')));
 app.use(express.json());
 

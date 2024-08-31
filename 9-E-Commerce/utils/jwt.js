@@ -30,9 +30,12 @@ const setCookies = (res, payload) => {
   
   // https://expressjs.com/en/api.html#res.cookie
   res.cookie('token', token, {
+    // Cookie is accessible only by the server!
     httpOnly: true,
     expires: new Date(Date.now() + oneDay),
+    // Cookie can be used only with HTTPS
     secure: process.env.NODE_ENV === 'production',
+    // Signed cookie
     signed: true
   });
 }

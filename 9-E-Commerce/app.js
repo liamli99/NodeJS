@@ -9,6 +9,7 @@ const { rateLimit } = require('express-rate-limit');
 const helmet = require('helmet');
 const cors = require('cors');
 const xss = require('xss-clean'); // Not supported!
+const mongoSanitize = require('express-mongo-sanitize');
 
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
@@ -37,6 +38,7 @@ app.use(rateLimit({
 app.use(helmet());
 app.use(cors());
 app.use(xss());
+app.use(mongoSanitize());
 
 // Since controllers/authController.js sets JWT as a signed cookie, we should pass a secret string to cookieParser to enable signed cookie! Now the authentication middleware can use 'req.signedCookies.token' to access the token!
 app.use(cookieParser(process.env.JWT_SECRET));

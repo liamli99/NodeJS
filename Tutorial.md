@@ -119,14 +119,21 @@ Similar to modules, we can use require (CommonJS Modules) or import (ES Modules)
 
 ### cors
 - [Documentation](https://www.npmjs.com/package/cors)
-- CORS (Cross-origin resource sharing) is a mechanism that allows a web page to access restricted resources from a server on a domain different than the domain that served the web page! This package can be used to enable CORS with various options.
+- CORS (Cross-origin resource sharing) is a mechanism that allows a client web application on one domain to access restricted resources from a server on a different domain! This package can be used to enable CORS with various options.
 - `npm install cors`
 - 1. Load cors: `const cors = require('cors')`
-  2. Use cors: `app.use(cors())`
-- If we don't want external JS apps to access our API (except our front-end), then don't load cors!!!
+  1. Use cors: `app.use(cors())`
+- If we don't want external apps to access our API, then don't load cors!!!
 
 ### xss-clean 
 NOT SUPPORTED!!!
+
+### express-mongo-sanitize
+- [Documentation](https://www.npmjs.com/package/express-mongo-sanitize)
+- It sanitizes user-supplied data to prevent MongoDB Operator Injection
+- `npm install express-mongo-sanitize`
+- 1. Load: `const mongoSanitize = require('express-mongo-sanitize')`
+  2. Use: `app.use(mongoSanitize())`
 
 ### express-rate-limit
 - [Documentation](https://express-rate-limit.mintlify.app/overview)
@@ -218,14 +225,15 @@ Payments: https://dashboard.stripe.com/test/payments
   });
   ```
 
-  ### cookie-parser
-  - [Documentation](https://www.npmjs.com/package/cookie-parser)
-  - Parse the cookies
-  - `npm install cookie-parser`
-  - 1. Load: `const cookieParser = require('cookie-parser')`
-    2. Use: `app.use(cookieParser())` or `app.use(cookieParser(secret))`
-    3. Access the cookie: `req.cookies` or `req.signedCookies`
+### cookie-parser
+- [Documentation](https://www.npmjs.com/package/cookie-parser)
+- Parse the cookies
+- `npm install cookie-parser`
+- 1. Load: `const cookieParser = require('cookie-parser')`
+  2. Use: `app.use(cookieParser())` or `app.use(cookieParser(secret))`
+  3. Access the cookie: `req.cookies` or `req.signedCookies`
 
+### doc
 
 ## Event Loop
 The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
