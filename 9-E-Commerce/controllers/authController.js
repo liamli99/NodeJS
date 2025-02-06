@@ -4,7 +4,8 @@ const { BadRequestError, UnauthenticatedError } = require('../errors');
 const { createPayload, setCookies, clearCookies } = require('../utils/jwt');
 
 // In previous projects, the server sends JWT as part of the response, the frontend then stores the token in Local Storage! When the frontend sends requests, the token is retrieved from the Local Storage and sent as part of the request header 'Authorization: Bearer <token>'!!! Then the authentication middleware can retrieve the token from the request header!
-// In this project, the server sets the JWT as a signed cookie! When the frontend sends requests, the authentication middleware can retrieve the token by using 'req.signedCookies.token' since we load 'cookie-parser' in app.js!
+
+// In this project, the server sets the JWT as a signed cookie! When the frontend sends requests, the browser automatically includes the cookie in the requests! Then the authentication middleware can retrieve the token by using 'req.signedCookies.token' since we load 'cookie-parser' in app.js!
 
 
 // POST /api/v1/auth/register

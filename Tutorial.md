@@ -319,6 +319,8 @@ Scripts
 https://expressjs.com/en/guide/routing.html
 Express Router is a mini Express application that groups related routes together! Since router can be created as a module, we can first import it in the main file. Since router is a middleware, we can then mount the router module on a specific path in the main file!!! 
 
+Route: `app.METHOD(PATH, HANDLER)`
+
 ## Error Handling
 1. Errors that occur in synchronous function: `throw new Error(...)`
 2. Errors that occur in asynchronous function: `next(error)`
